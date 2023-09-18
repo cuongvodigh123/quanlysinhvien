@@ -1,8 +1,12 @@
 package model;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.HashMap;
+
+import javax.sql.rowset.serial.SerialBlob;
 
 public class SinhVien implements Comparable<SinhVien>{
 	private String maSV, tenSV, lopSV, tenChinh;
@@ -12,9 +16,37 @@ public class SinhVien implements Comparable<SinhVien>{
 	private byte[] avatar;
 	
     public SinhVien() {
+    	this.maSV="";
+		this.tenSV="";
+		this.lopSV="";
+		this.gioiTinh=1;
+        this.ngaySinh = null;
+		this.soDienThoai="";
+		this.setEmail("");
+		this.setDiaChi(null);
+		this.setGhiChu(null);
+		this.avatar=null;
     }
 
-    public String getMaSV() {
+    public SinhVien(String maSV2, String tenSV2, String lopSV2, Integer gioiTinh2,String ngaySinh2,String soDienThoai2, String email2,
+			String diaChi2, String ghiChu2, String base64) throws ParseException {
+		this.maSV=maSV2;
+		this.tenSV=tenSV2;
+		this.lopSV=lopSV2;
+		this.gioiTinh=gioiTinh2;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        java.util.Date utilDate = dateFormat.parse(ngaySinh2);
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        this.ngaySinh = sqlDate;
+		this.soDienThoai=soDienThoai2;
+		this.setEmail(email2);
+		this.setDiaChi(diaChi2);
+		this.setGhiChu(ghiChu2);
+		if(base64.equals("")) this.avatar=null;
+		else this.avatar=Base64.getDecoder().decode(base64);
+	}
+
+	public String getMaSV() {
         return maSV;
     }
 
@@ -27,6 +59,7 @@ public class SinhVien implements Comparable<SinhVien>{
     }
 
     public String getNgaySinh() {
+    	if(ngaySinh==null) return null;
         return new SimpleDateFormat("dd/MM/yyyy").format(this.ngaySinh);
     }
 
@@ -55,9 +88,12 @@ public class SinhVien implements Comparable<SinhVien>{
     public void setLopSV(String lopSV) {
         this.lopSV = lopSV.trim();
     }
-
-    public String getGioiTinh() {
-        return gioiTinh == 1 ? "Nam" : "Nữ";
+    public String getGioiTinhString() {
+    	return gioiTinh == 1 ? "Nam" : "Nữ";
+    }
+    
+    public int getGioiTinh() {
+        return gioiTinh;
     }
 
     public void setGioiTinh(int gioiTinh) {
@@ -72,9 +108,15 @@ public class SinhVien implements Comparable<SinhVien>{
         return (soDienThoai == null ? null : soDienThoai.trim().equals("") ? null : soDienThoai.trim());
     }
     
-    public byte[] getAvatar() {
-        return avatar;
-    }
+    public String getAvatarIcon() {
+    	if(this.avatar==null) return "";
+		return Base64.getEncoder().encodeToString(this.avatar);
+	}
+	
+	public byte[] getAvatar() {
+//		return this.avatar;
+		return (avatar==null ? null : avatar);
+	}
 
     public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
@@ -231,4 +273,9 @@ public class SinhVien implements Comparable<SinhVien>{
         return this.maSV.compareTo(o.maSV);
     }
 	
+    @Override
+    public String toString() {
+    	return maSV+" "+tenSV+" "+lopSV+" "+gioiTinh+" "+new SimpleDateFormat("dd/MM/yyyy").format(ngaySinh)+" "+soDienThoai;
+    }
+    
 }

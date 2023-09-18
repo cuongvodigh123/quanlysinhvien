@@ -33,7 +33,7 @@ public class CheckLogin extends HttpServlet {
 		Account acc = accountDao.checklogin(username, password);
 		PrintWriter out = response.getWriter();
 		if(acc==null) {
-			out.print("Sai");
+			out.print("error");
 		}else {
 			out.print(username);
 		}

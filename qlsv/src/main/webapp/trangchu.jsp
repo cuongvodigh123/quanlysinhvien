@@ -12,12 +12,12 @@
 </head>
 <body>
 	<div style="display: flex;flex-direction: column;">
-	<img id="anhdaidien" src="data:image/jpeg;base64,${acountAccount.getAvatarIcon()}" alt="avata" style="width: 200px;height: 200px">
+	<img id="anhdaidien" src="data:image/png;base64,${acountAccount.getAvatarIcon()}" alt="avata" style="width: 200px;height: 200px">
 		
 		<span><h4>Tài khoản:</h4></span>
-	    <span style="display: inline;"><c:out value="${acountAccount.getUsername()}" /></span>
-	    <span><h4>Role:</h4></span>
-	    <span style="display: inline;"><c:out value="${acountAccount.getRole()}" /></span>
+	    <span style="display: inline;"><c:out value=" ${acountAccount.getUsername()}" /></span>
+	    <span><h4>Chức vụ:</h4></span>
+	    <span style="display: inline;"><c:out value=" ${acountAccount.getRole()}" /></span>
 	</div>
     <br>
     <input id="add" type="hidden" value="${acountAccount.getAvatarIcon() }">
@@ -27,7 +27,11 @@
     <button onclick="chooseFile()">Đổi Ảnh Đại Diện</button>
     
     <button id="doimk" onclick="doimatkhau()">Đổi mật khẩu</button>
-    <button id="dssv">Danh sách sinh viên</button>
+    <button id="dssv"  onclick="dssv()">Danh sách sinh viên</button>
+    <a id="gotodssv" href="/qlsv/ServletQLSV?goto=listsinhvien&username=${acountAccount.getUsername() }"></a>
+    <br>
+    <div id="divmk"></div>
+    
     
     <button id=check onclick="check()">Check</button>
     <div id="demo"></div>

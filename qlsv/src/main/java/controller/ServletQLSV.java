@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import dao.AccountDao;
 import dao.SinhVienDao;
 import model.Account;
+import model.SinhVien;
+import model.Test;
 
 /**
  * Servlet implementation class AjaxController
@@ -44,20 +46,14 @@ public class ServletQLSV extends HttpServlet {
 		String s1 = request.getParameter("goto");
         try {
             switch (s1) {
+            case "edit":
+            	editstudent(request,response);
+            	break;
             case "trangchu":
             	showTrangChu(request,response);
             	break;
             case "listsinhvien":
                 showList(request, response);
-                break;
-            case "addsinhvien":
-                addsinhvien(request, response);
-                break;
-            case "deletesinhvien":
-                deletesinhvien(request, response);
-                break;
-            case "updatesinhvien":
-                updatesinhvien(request, response);
                 break;
             case "login":
             	login(request, response);
@@ -72,6 +68,24 @@ public class ServletQLSV extends HttpServlet {
         }
 	}
 
+	private void editstudent(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
+		// TODO Auto-generated method stub
+		String maSV = request.getParameter("maSV");
+		SinhVien sinhvien = null;
+		if(maSV.equals("new")) {
+			sinhvien = new SinhVien();
+			System.out.println("new sinh vien");
+		}else {
+			sinhvien = sinhVienDao.getSinhVien(maSV);
+			System.out.println(sinhvien.getTenSV());
+		}
+		
+
+		request.setAttribute("sinhvien", sinhvien);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("editstudent.jsp");
+		dispatcher.forward(request, response);
+		
+	}
 	private void showTrangChu(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
 		// TODO Auto-generated method stub
 		String username = request.getParameter("username");
@@ -90,25 +104,14 @@ public class ServletQLSV extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-
-	private void updatesinhvien(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void deletesinhvien(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void addsinhvien(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
-		// TODO Auto-generated method stub
-		
-	}
-
 	private void showList(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
+		if(acountAccount == null) {
+    		login(request, response);
+    	}
 		// TODO Auto-generated method stub
-		
+		request.setAttribute("acountAccount", acountAccount);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("listsinhvien.jsp");
+		dispatcher.forward(request, response);
 	}
-
+	
 }

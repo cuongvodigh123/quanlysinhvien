@@ -69,57 +69,49 @@ public class SinhVienDao {
         }
         return sv;
 	}
-	public List<SinhVien> findAll(String typeFind,String strFind, String sortBy, boolean asc){
+	public List<SinhVien> findAll(String typeFind,String strFind, String sortBy, boolean asc) throws SQLException{
 		List<SinhVien> list = new ArrayList<>();
 		try {
-			Map<String,String> dir = new HashMap<String, String>();
-			dir.put("", "maSV");
-            dir.put("Mã sinh viên", "maSV");
-            dir.put("Họ và tên", "tenSV");
-            dir.put("Lớp", "lopSV");
-            dir.put("Giới tính", "gioiTinh");
-            dir.put("Số Điện Thoại", "soDienThoai");
-            dir.put("Ngày sinh", "ngaySinh");
-            dir.put("Địa Chỉ", "diaChi");
-            
-            if(typeFind == null) {
-            	typeFind="";
-            }
-            if(typeFind.equals("Giới tính")) {
-            	if(strFind.equalsIgnoreCase("nam")) {
-            		strFind="1";
-            	}else if (strFind.equalsIgnoreCase("nữ") || strFind.equalsIgnoreCase("nu")) {
-            		strFind="0";
-            	}else {
-					return list;
-				}	
-            }
             StringBuilder sql = new StringBuilder("Select * from sinh_vien Where ");
-            sql.append(dir.get(typeFind)).append(" Like ? ");
-            if (!sortBy.equals("") && !sortBy.equals("Tên")) {
-                sql.append("Order By ").append(dir.get(sortBy));
-                if ((asc == true && sortBy.equals("Giới tính"))) {
-                    sql.append(" DESC");
-                } else if (asc == false && !sortBy.equals("Giới tính")) {
-                    sql.append(" DESC");
-                }
+            sql.append(typeFind);
+            sql.append(" Like ? ");
+            sql.append("Order By ");
+            sql.append(sortBy);
+            if(asc==true) {
+            	sql.append(" DESC");
             }
             connect();
             PreparedStatement statement = jdbcConnection.prepareStatement(sql.toString());
             statement.setString(1, "%" + strFind + "%");
+//            System.out.println(statement.toString());
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 SinhVien sv = createSinhVien(rs);
                 list.add(sv);
             }
             disconnect();
-            if (sortBy.equals("Tên")) {
-                Collections.sort(list, (a, b) -> a.getTenChinh().compareTo(b.getTenChinh()) * (asc == true ? 1 : -1));
-            }
 		}catch (SQLException e) {
 			System.out.println("Lỗi find all sinh viên.");
 		}
 		return list;
+	}
+	public SinhVien getSinhVien(String maSV) throws SQLException{
+		SinhVien sv = null;
+		try {
+			String sql = "select * from sinh_vien where maSV = ?";
+			connect();
+			PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+			statement.setString(1, maSV);
+			ResultSet set = statement.executeQuery();
+			while(set.next()) {
+				sv = createSinhVien(set);
+			}
+			disconnect();
+			return sv;
+		}catch (SQLException e) {
+			System.out.println("loi get sinh vien.");
+		}
+		return sv;
 	}
 	public boolean updateSinhVien(SinhVien sv, String maSVold) {
 		try {
@@ -133,7 +125,7 @@ public class SinhVienDao {
 			statement.setString(1, sv.getMaSV());
 			statement.setString(2, sv.getTenSV());
 			statement.setString(3, sv.getLopSV());
-			statement.setInt(4, sv.getGioiTinh().equals("Nam") ? 1 : 0);
+			statement.setInt(4, sv.getGioiTinh());
 			statement.setString(5, new SimpleDateFormat("yyyy-MM-dd").format(sv.getNgaySinhDate()));
 			statement.setString(6, sv.getSoDienThoai());
 			statement.setString(7, sv.getEmail());
@@ -153,18 +145,19 @@ public class SinhVienDao {
         try {
             String sql = "INSERT INTO sinh_vien (maSV,tenSV,lopSV,gioiTinh,ngaySinh,soDienThoai,email,diaChi,ghiChu,avatar)"
                     + " VALUES (?,?,?,?,?,?,?,?,?,?);";
+            connect();
             PreparedStatement statement = jdbcConnection.prepareStatement(sql);
             statement.setString(1, sv.getMaSV());
             statement.setString(2, sv.getTenSV());
             statement.setString(3, sv.getLopSV());
-            statement.setInt(4, sv.getGioiTinh().equals("Nam") ? 1 : 0);
+            statement.setInt(4, sv.getGioiTinh());
             statement.setString(5, new SimpleDateFormat("yyyy-MM-dd").format(sv.getNgaySinhDate()));
             statement.setString(6, sv.getSoDienThoai());
             statement.setString(7, sv.getEmail());
             statement.setString(8, sv.getDiaChi());
             statement.setString(9, sv.getGhiChu());
             statement.setBlob(10, sv.getAvatar() != null ? new SerialBlob(sv.getAvatar()) : null);
-            boolean x= statement.executeUpdate()>0;
+            boolean x= statement.executeUpdate() > 0;
             disconnect();
             return x;
         } catch (SQLException ex) {
