@@ -11,9 +11,9 @@
 <script type="text/javascript" src="js/checklogin.js"></script>
 </head>
 <body>
-    <div style="border: 4px solid purple;text-align: center;">
+    <div style="border: 4px solid purple;display: flex; flex-direction: column;align-items: center;justify-content: center;">
         <p style="font-size: 20px;color: purple;">Đăng nhập vào hệ thống quản lý sinh viên.</p>
-        <div style="display: flex;margin-left: 450px;">
+        <div style="display: flex;width: 20%;">
             <div style="width: 100px;text-align: left;">Tài Khoản:</div>
             <div style="display: inline;">
                 <input  type="text" id="username">
@@ -22,14 +22,13 @@
             
         </div>
         <br>
-        <div style="display: flex;margin-left: 450px;">
+        <div style="display: flex;width: 20%;">
             <div  style="width: 100px;text-align: left;">Mật khẩu:</div>
             <div style="display: inline;">
                 <input  type="password" id="password">
                 <p style="display: inline;color: red;" id="p2"></p>
             </div>
         </div>
-        <br>
         <p style="display: inline;color: red;" id="p3"></p>
         <br>
         <button onclick="check()">Đăng nhập</button>

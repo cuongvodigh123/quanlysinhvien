@@ -149,7 +149,7 @@ public class Update extends HttpServlet {
 		String username = request.getParameter("username");
 		String base64 = request.getParameter("base64");
 		boolean a = accountDao.updateImage(username, base64);
-		System.out.println("base64 :"+base64);
+//		System.out.println("base64 :"+base64);
 		PrintWriter out = response.getWriter();
 		if(a) out.print("ok");
 		else out.print("notok");
