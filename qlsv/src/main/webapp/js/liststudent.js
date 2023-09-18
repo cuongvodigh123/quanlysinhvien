@@ -22,7 +22,7 @@ function setuptable(){
 	+ "            </tr>";
 }
 function check(){
-	var desc=masv;
+	var desc=0;
 	var strFind = $('#strFind').val();
 	var utf8Data = new TextEncoder().encode(strFind);
 	var base64String = btoa(String.fromCharCode.apply(null, utf8Data));
@@ -207,3 +207,19 @@ function sortsdt(){
 	if(soDienThoai==0) soDienThoai=1;
 	else soDienThoai=0;
 }
+function chooseFile() {
+    var fileInput = document.getElementById('fileInput');
+    fileInput.click();
+}
+var base64Image = null;
+document.getElementById('fileInput').addEventListener('change', function(event) {
+    var file = event.target.files[0];
+    var reader = new FileReader();
+
+    reader.onload = function() {
+        var a = document.getElementById("demo");
+        a.innerHTML = "ok";
+    }
+
+    reader.readAsDataURL(file);
+});

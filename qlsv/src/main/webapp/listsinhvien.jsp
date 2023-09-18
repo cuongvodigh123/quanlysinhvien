@@ -13,6 +13,10 @@
         <h1>Danh sách sinh viên</h1>
         <h2>
             <a href="/qlsv/ServletQLSV?goto=edit&maSV=new" target="_blank">Thêm sinh viên</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+           	<button id="excel" onclick="chooseFile()">Nhập file Excel</button>
+			<input type="file" id="fileInput" style="display:none">
+			<div id="demo"></div>
         </h2>
     </center>
     <div align="center">

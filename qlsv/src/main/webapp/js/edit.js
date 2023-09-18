@@ -25,7 +25,42 @@ function huy(){
         window.close();
     }
 }
-
+function xoa(){
+	var isConfirmed = confirm("Bạn có chắc muốn xoá sinh viên này không.");
+	if(isConfirmed){
+		var maSVold = $('#maSVold').val();
+		$.ajax({
+			type: 'post',
+			data : {
+				maSVold : maSVold,
+				action : "deletestudent"
+			},
+			url : 'Update',
+			success:function(result){
+				if(result=='ok'){
+				var a = document.getElementById("demo");
+				setTimeout(function(){
+					a.innerHTML = "Xoá thành công.";
+					setTimeout(function(){
+						a.innerHTML = "";
+					},2000);
+					setTimeout(function(){
+						window.close();
+					},1000);
+				},100);
+			}else{
+				var a = document.getElementById("demo");
+				setTimeout(function(){
+					a.innerHTML = "Xoá không thành công.";
+					setTimeout(function(){
+						a.innerHTML = "";
+				},2000);
+				},100);
+			}
+			}
+		});
+	}
+}
 function luu(){
 	var maSVold = $('#maSVold').val();
 	var maSV = $('#maSV').val();

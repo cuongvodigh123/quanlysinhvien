@@ -18,13 +18,12 @@
 			<img id="anhdaidien" src="data:image/png;base64,${sinhvien.getAvatarIcon()}" alt="avata" style="width: 200px;height: 200px">
 		</c:if>	
 		<button onclick="chooseFile()">Đổi ảnh</button>
+		<input type="file" id="fileInput" style="display:none">
 		<br>
 		<p>Mã sinh viên:<input id="maSV" type="text" value="<c:out value="${sinhvien.getMaSV()}" />"></p>
 		<p>Tên sinh viên:<input id="tenSV" type="text" value="<c:out value="${sinhvien.getTenSV()}" />"></p>
 		<p>Lớp sinh viên:<input id="lopSV" type="text" value="<c:out value="${sinhvien.getLopSV()}" />"></p>
 		
-		
-		<!-- <p>Giới tính :<input id="gioiTinh" type="text" value="<c:out value=" ${sinhvien.getGioiTinh()}" />"></p> -->
 		<c:if test="${sinhvien.getGioiTinh() == 1}">
 			<label for="male">Nam</label>
 			<input type="radio" id="male" name="gender" value="1" checked>
@@ -48,9 +47,13 @@
 		<p>Ghi chú:<input id="ghiChu" type="text" value="<c:out value="${sinhvien.getGhiChu()}" />"></p>
 		<button id="luu" onclick="luu()">Lưu</button>
 		<button id="huy" onclick="huy()">Huỷ</button>
+		<c:if test="${sinhvien.getMaSV()!=\"\"}">
+			<button id="xoa" onclick="xoa()">Xoá sinh viên</button>
+		</c:if>
+		
 	</div>
 	
-	<input type="file" id="fileInput" style="display:none">
+	
 	<button onclick="check()">Check</button>
 	<div id="demo"></div>
 	<div id="demo1"></div>

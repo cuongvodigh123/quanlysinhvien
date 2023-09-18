@@ -165,12 +165,12 @@ public class SinhVienDao {
         }
         return false;
     }
-	public boolean deleteSinhVien(SinhVien sv) {
+	public boolean deleteSinhVien(String maSV) {
         try {
             String sql = "DELETE FROM sinh_vien WHERE (maSV = ?);";
             connect();
             PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-            statement.setString(1, sv.getMaSV());
+            statement.setString(1, maSV);
             boolean x = statement.executeUpdate()>0;
             return x;
         } catch (SQLException ex) {

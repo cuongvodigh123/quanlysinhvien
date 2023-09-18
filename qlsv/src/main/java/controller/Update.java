@@ -41,6 +41,9 @@ public class Update extends HttpServlet {
 		System.out.println("Update: "+action);
 		try {
 	        switch (action) {
+	        case "deletestudent":
+	        	deletestudent(request,response);
+	        	break;
 	        case "addstudent":
 	        	addstudent(request,response);
 	        	break;
@@ -69,12 +72,20 @@ public class Update extends HttpServlet {
 		}
 	}
 	
+	private void deletestudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		// TODO Auto-generated method stub
+		String maSV = request.getParameter("maSVold");
+		boolean x =sinhVienDao.deleteSinhVien(maSV);
+		PrintWriter out = response.getWriter();
+		if(x) out.print("ok");
+		else out.print("notok");
+	}
 	private void addstudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException{
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
 		String base64 = request.getParameter("base64");
 		String maSVold = request.getParameter("maSVold").trim();
-		System.out.println("'"+maSVold+"'");
+		System.out.println("ma sinh vien cu '"+maSVold+"'");
 		if(!maSVold.equals("")) {
 			out.print("notok");
 			return;
