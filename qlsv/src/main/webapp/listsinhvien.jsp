@@ -6,17 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Danh sách sinh viên</title>
+<link rel="icon" type="image/x-icon" href="image/ech.png">
 <script type="text/javascript" src="js/jquery-1.6.2.js"></script>
 </head>
 <body>
     <center>
         <h1>Danh sách sinh viên</h1>
         <h2>
-            <a href="/qlsv/ServletQLSV?goto=edit&maSV=new" target="_blank">Thêm sinh viên</a>
+            <a href="/qlsv/ServletQLSV?action=edit&maSV=new" target="_blank">Thêm sinh viên</a>
             &nbsp;&nbsp;&nbsp;&nbsp;
-           	<button id="excel" onclick="chooseFile()">Nhập file Excel</button>
-			<input type="file" id="fileInput" style="display:none">
-			<div id="demo"></div>
+           	<a href="/qlsv/ServletQLSV?action=excel" target="_blank">Nhập File Excel</a>
         </h2>
     </center>
     <div align="center">
@@ -31,6 +30,8 @@
     </select>
     <input id="strFind" type="text">
     <button id="check" onclick="check()">Tìm</button>
+    <br>
+    <a id="xuatexcel" href="" target="_blank">Xuất File Excel Danh Sách Đang Hiển Thị</a>
         <table id="boxdssv" border="1" cellpadding="5">
             <caption><h2>Danh sách</h2></caption>
             <tr>

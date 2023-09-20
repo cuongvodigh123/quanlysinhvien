@@ -68,13 +68,22 @@ function luu(){
 	var utf8Data = new TextEncoder().encode(tenSV);
 	var base64String = btoa(String.fromCharCode.apply(null, utf8Data));
 	tenSV=base64String;
+	
 	var lopSV = $('#lopSV').val();
 	var gioiTinh = document.querySelector('input[name="gender"]:checked').value;
 	var ngaySinh = $('#ngaySinh').val();
 	var soDienThoai = $('#soDienThoai').val();
 	var email = $('#email').val();
 	var diaChi = $('#diaChi').val();
+	utf8Data = new TextEncoder().encode(diaChi);
+	base64String = btoa(String.fromCharCode.apply(null, utf8Data));
+	diaChi=base64String;
+	
 	var ghiChu = $('#ghiChu').val();
+	utf8Data = new TextEncoder().encode(ghiChu);
+	base64String = btoa(String.fromCharCode.apply(null, utf8Data));
+	ghiChu=base64String;
+	
 	if(base64Image==null){
 		base64Image="";
 	}

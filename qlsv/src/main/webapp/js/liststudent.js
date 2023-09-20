@@ -5,10 +5,14 @@ $.ajax({
 	},
 	url : 'Update',
 	success : function(set){
+		
 		var a = document.getElementById("boxdssv");
 		a.innerHTML += set;
+		document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
+		"&q=maSV&w=&e=maSV&r=0";
 	}
 });
+
 function setuptable(){
 	var a = document.getElementById("boxdssv");
 	a.innerHTML = "<caption><h2>Danh sách</h2></caption>\r\n"
@@ -42,6 +46,8 @@ function check(){
 			setuptable();
 			var a = document.getElementById("boxdssv");
 			a.innerHTML += set;
+			document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
+		"&q="+sapxep+"&w="+strFind+"&e="+sapxep+"&r="+desc;
 		}
 	});
 }
@@ -67,6 +73,8 @@ function sortmasv(){
 			setuptable();
 			var a = document.getElementById("boxdssv");
 			a.innerHTML += set;
+			document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
+		"&q="+sapxep+"&w="+strFind+"&e=maSV&r="+desc;
 		}
 	});
 	if(masv==0) masv=1;
@@ -94,6 +102,8 @@ function sorttensv(){
 			setuptable();
 			var a = document.getElementById("boxdssv");
 			a.innerHTML += set;
+			document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
+		"&q="+sapxep+"&w="+strFind+"&e=tenSV&r="+desc;
 		}
 	});
 	if(tenSV==0) tenSV=1;
@@ -121,6 +131,8 @@ function sortlopsv(){
 			setuptable();
 			var a = document.getElementById("boxdssv");
 			a.innerHTML += set;
+			document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
+		"&q="+sapxep+"&w="+strFind+"&e=lopSV&r="+desc;
 		}
 	});
 	if(lopSV==0) lopSV=1;
@@ -148,6 +160,8 @@ function sortgioitinh(){
 			setuptable();
 			var a = document.getElementById("boxdssv");
 			a.innerHTML += set;
+			document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
+		"&q="+sapxep+"&w="+strFind+"&e=gioiTinh&r="+desc;
 		}
 	});
 	if(gioiTinh==0) gioiTinh=1;
@@ -175,6 +189,8 @@ function sortngaysinh(){
 			setuptable();
 			var a = document.getElementById("boxdssv");
 			a.innerHTML += set;
+			document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
+		"&q="+sapxep+"&w="+strFind+"&e=ngaySinh&r="+desc;
 		}
 	});
 	if(ngaySinh==0) ngaySinh=1;
@@ -202,24 +218,10 @@ function sortsdt(){
 			setuptable();
 			var a = document.getElementById("boxdssv");
 			a.innerHTML += set;
+			document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
+		"&q="+sapxep+"&w="+strFind+"&e=soDienThoai&r="+desc;
 		}
 	});
 	if(soDienThoai==0) soDienThoai=1;
 	else soDienThoai=0;
 }
-function chooseFile() {
-    var fileInput = document.getElementById('fileInput');
-    fileInput.click();
-}
-var base64Image = null;
-document.getElementById('fileInput').addEventListener('change', function(event) {
-    var file = event.target.files[0];
-    var reader = new FileReader();
-
-    reader.onload = function() {
-        var a = document.getElementById("demo");
-        a.innerHTML = "ok";
-    }
-
-    reader.readAsDataURL(file);
-});

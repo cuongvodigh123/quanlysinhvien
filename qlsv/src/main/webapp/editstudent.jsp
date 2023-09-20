@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Edit Student</title>
+<link rel="icon" type="image/x-icon" href="image/ech.png">
 <script type="text/javascript" src="js/jquery-1.6.2.js"></script>
 </head>
 <body>

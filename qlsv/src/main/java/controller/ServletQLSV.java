@@ -42,10 +42,15 @@ public class ServletQLSV extends HttpServlet {
 		doGet(request, response);
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getServletPath();
-		String s1 = request.getParameter("goto");
+		String s1 = request.getParameter("action");
         try {
             switch (s1) {
+            case "exportexcel":
+            	exportexcel(request,response);
+            	break;
+            case "excel":
+            	excelform(request,response);
+            	break;
             case "edit":
             	editstudent(request,response);
             	break;
@@ -68,6 +73,30 @@ public class ServletQLSV extends HttpServlet {
         }
 	}
 
+	private void exportexcel(HttpServletRequest request, HttpServletResponse response)throws SQLException,IOException,ServletException{
+		// TODO Auto-generated method stub
+		String q = request.getParameter("q");
+		String w = request.getParameter("w");
+		if(w.equals("")) {
+			w = "";
+		}else {
+			byte[] bytes = Base64.getDecoder().decode(w);
+			w = new String(bytes);
+		}
+		
+		String e = request.getParameter("e");
+		String r = request.getParameter("r");
+		List<SinhVien> list = sinhVienDao.findAll(q, w, e, r.equals("1")?true:false);
+		request.setAttribute("list", list);
+		request.setAttribute("test", "xinchao123");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("xuatexcel.jsp");
+		dispatcher.forward(request, response);
+	}
+	private void excelform(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
+		// TODO Auto-generated method stub
+		RequestDispatcher dispatcher = request.getRequestDispatcher("excelform.jsp");
+		dispatcher.forward(request, response);
+	}
 	private void editstudent(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
 		// TODO Auto-generated method stub
 		String maSV = request.getParameter("maSV");

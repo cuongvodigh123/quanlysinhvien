@@ -22,7 +22,7 @@ function check() {
 					$('#p3').html("Sai thông tin hoặc mật khẩu. Mời nhập lại.");
 				}else{
 					document.getElementById("trangchu").innerHTML +=
-					"<a id=\"ok\" href=\"/qlsv/ServletQLSV?goto=trangchu&username="+result+"\" ></a>";
+					"<a id=\"ok\" href=\"/qlsv/ServletQLSV?action=trangchu&username="+result+"\" ></a>";
 					document.getElementById("ok").click();
 				}
 

@@ -41,6 +41,9 @@ public class Update extends HttpServlet {
 		System.out.println("Update: "+action);
 		try {
 	        switch (action) {
+	        case "checkexitstudent":
+	        	checkexitstudent(request,response);
+	        	break;
 	        case "deletestudent":
 	        	deletestudent(request,response);
 	        	break;
@@ -72,6 +75,14 @@ public class Update extends HttpServlet {
 		}
 	}
 	
+	private void checkexitstudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		// TODO Auto-generated method stub
+		String maSV = request.getParameter("maSV");
+		boolean x =sinhVienDao.checkexit(maSV);
+		PrintWriter out = response.getWriter();
+		if(x) out.print("ok");
+		else out.print("notok");
+	}
 	private void deletestudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		// TODO Auto-generated method stub
 		String maSV = request.getParameter("maSVold");
@@ -96,15 +107,19 @@ public class Update extends HttpServlet {
 			return;
 		}
 		String tenSV = request.getParameter("tenSV");
+		byte[] bytes = Base64.getDecoder().decode(tenSV);
+        String ten = new String(bytes);
 		String lopSV = request.getParameter("lopSV");
 		Integer gioiTinh = Integer.parseInt(request.getParameter("gioiTinh"));
 		String ngaySinh = request.getParameter("ngaySinh");
 		String soDienThoai = request.getParameter("soDienThoai");
 		String email = request.getParameter("email");
 		String diaChi = request.getParameter("diaChi");
+		bytes = Base64.getDecoder().decode(diaChi);
+        diaChi = new String(bytes);
 		String ghiChu = request.getParameter("ghiChu");
-		byte[] bytes = Base64.getDecoder().decode(tenSV);
-        String ten = new String(bytes);
+		bytes = Base64.getDecoder().decode(ghiChu);
+		ghiChu = new String(bytes);
 		SinhVien sv = new SinhVien(maSV,ten,lopSV,gioiTinh,ngaySinh,soDienThoai,email,diaChi,ghiChu,base64);
 		System.out.println("add "+sv);
 		
@@ -120,15 +135,19 @@ public class Update extends HttpServlet {
 		String maSVold = request.getParameter("maSVold").trim();
 		String maSV = request.getParameter("maSV").trim();
 		String tenSV = request.getParameter("tenSV");
+		byte[] bytes = Base64.getDecoder().decode(tenSV);
+        String ten = new String(bytes);
 		String lopSV = request.getParameter("lopSV");
 		Integer gioiTinh = Integer.parseInt(request.getParameter("gioiTinh"));
 		String ngaySinh = request.getParameter("ngaySinh");
 		String soDienThoai = request.getParameter("soDienThoai");
 		String email = request.getParameter("email");
 		String diaChi = request.getParameter("diaChi");
+		bytes = Base64.getDecoder().decode(diaChi);
+        diaChi = new String(bytes);
 		String ghiChu = request.getParameter("ghiChu");
-		byte[] bytes = Base64.getDecoder().decode(tenSV);
-        String ten = new String(bytes);
+		bytes = Base64.getDecoder().decode(ghiChu);
+		ghiChu = new String(bytes);
 		SinhVien sv = new SinhVien(maSV,ten,lopSV,gioiTinh,ngaySinh,soDienThoai,email,diaChi,ghiChu,base64);
 		System.out.println("save "+sv);
 		
@@ -195,7 +214,7 @@ public class Update extends HttpServlet {
 		String res = "";
 		for(SinhVien x:list) {
 			res+=	"                <tr>\r\n"
-					+ "                    <td><a href=\"/qlsv/ServletQLSV?goto=edit&maSV="+x.getMaSV()+"\" target=\"_blank\">"+x.getMaSV()+"</td>\r\n"
+					+ "                    <td><a href=\"/qlsv/ServletQLSV?action=edit&maSV="+x.getMaSV()+"\" target=\"_blank\">"+x.getMaSV()+"</td>\r\n"
 					+ "                    <td>"+x.getTenSV()+"</td>\r\n"
 					+ "                    <td>"+x.getLopSV()+"</td>\r\n"
 					+ "                    <td>"+x.getGioiTinhString()+"</td>\r\n"

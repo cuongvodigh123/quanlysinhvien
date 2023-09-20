@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Đăng nhập</title>
+<link rel="icon" type="image/x-icon" href="image/ech.png">
 <script type="text/javascript" src="js/jquery-1.6.2.js"></script>
 <script type="text/javascript" src="js/checklogin.js"></script>
 </head>

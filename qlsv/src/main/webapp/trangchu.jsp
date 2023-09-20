@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Trang chủ</title>
+<link rel="icon" type="image/x-icon" href="image/ech.png">
 <script type="text/javascript" src="js/jquery-1.6.2.js"></script>
 
 </head>
@@ -28,7 +29,7 @@
     
     <button id="doimk" onclick="doimatkhau()">Đổi mật khẩu</button>
     <button id="dssv"  onclick="dssv()">Danh sách sinh viên</button>
-    <a id="gotodssv" href="/qlsv/ServletQLSV?goto=listsinhvien&username=${acountAccount.getUsername() }"></a>
+    <a id="gotodssv" href="/qlsv/ServletQLSV?action=listsinhvien&username=${acountAccount.getUsername() }"></a>
     <br>
     <div id="divmk"></div>
     

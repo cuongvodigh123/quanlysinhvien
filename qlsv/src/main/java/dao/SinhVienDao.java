@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import javax.sql.rowset.serial.SerialBlob;
 
+import model.Account;
 import model.SinhVien;
 
 public class SinhVienDao {
@@ -178,4 +179,21 @@ public class SinhVienDao {
         }
         return false;
     }
+
+	public boolean checkexit(String maSV) {
+		try {
+    		String sql = "select * from sinh_vien where maSV = ? ";
+    		connect();
+    		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+    		statement.setString(1, maSV);
+    		ResultSet set = statement.executeQuery();
+    		if(set.next()) {
+    			disconnect();
+    			return true;
+    		}		
+    	}catch (SQLException e) {
+			System.out.println("lỗi check exit sinh vien.");
+		}
+    	return false;
+	}
 }
