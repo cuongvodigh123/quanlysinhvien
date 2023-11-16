@@ -39,10 +39,15 @@ public class ServletQLSV extends HttpServlet {
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
 		doGet(request, response);
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String s1 = request.getParameter("action");
+		if(s1==null) {
+			s1="login";
+		}
         try {
             switch (s1) {
             case "exportexcel":
@@ -108,8 +113,7 @@ public class ServletQLSV extends HttpServlet {
 			sinhvien = sinhVienDao.getSinhVien(maSV);
 			System.out.println(sinhvien.getTenSV());
 		}
-		
-
+	
 		request.setAttribute("sinhvien", sinhvien);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("editstudent.jsp");
 		dispatcher.forward(request, response);

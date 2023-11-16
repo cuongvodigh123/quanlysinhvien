@@ -10,23 +10,6 @@
     8 : "diaChi",
     9 : "ghiChu"
 }  
-function checkexitstudent(maSV){
-	var ok = false;
-	$.ajax({
-			type: 'post',
-			data : {
-				maSV : maSV,
-				action : "checkexitstudent"
-			},
-			url : 'Update',
-			success:function(result){
-				if(result=='ok'){
-					ok=true;
-				}
-			}
-		});
-	return ok;
-}
 function savexcel(){
 	var maSV = document.getElementsByClassName("maSV");
 	var tenSV = document.getElementsByClassName("tenSV");
@@ -39,13 +22,10 @@ function savexcel(){
 	var ghiChu = document.getElementsByClassName("ghiChu");
 	
 	for(var i=0;i<maSV.length;i++){
-		var maSVold = "";
 		var maSV1 = maSV[i].value;
 		if(maSV1=="") continue;
 		var tenSV1 = tenSV[i].value;
-		var utf8Data = new TextEncoder().encode(tenSV1);
-		var base64String = btoa(String.fromCharCode.apply(null, utf8Data));
-		tenSV1=base64String;
+		tenSV1=encodeURIComponent(tenSV1);
 		var lopSV1 = lopSV[i].value;
 		var gioiTinh1 = gioiTinh[i].value;
 		if(gioiTinh1=='Nam') gioiTinh1 = 1;
@@ -54,25 +34,17 @@ function savexcel(){
 		var soDienThoai1 = soDienThoai[i].value;
 		var email1 = email[i].value;
 		var diaChi1 = diaChi[i].value;
-		utf8Data = new TextEncoder().encode(diaChi1);
-		base64String = btoa(String.fromCharCode.apply(null, utf8Data));
-		diaChi1=base64String;
+		diaChi1=encodeURIComponent(diaChi1);
 		var ghiChu1 = ghiChu[i].value;
-		utf8Data = new TextEncoder().encode(ghiChu1);
-		base64String = btoa(String.fromCharCode.apply(null, utf8Data));
-		ghiChu1=base64String;
+		ghiChu1=encodeURIComponent(ghiChu1);
 		var base64Image="";
 		
 		var action ="addstudent";
-		if(checkexitstudent(maSV1)){
-			action ="savestudent";
-			maSVold=maSV1;
-		}
 		$.ajax({
 			type: 'post',
 			data: {
 				base64 : base64Image,
-				maSVold :maSVold,
+				maSVold :"",
 				maSV : maSV1,
 				tenSV : tenSV1,
 				lopSV : lopSV1,
@@ -94,8 +66,8 @@ function savexcel(){
 			}
 		});
 	}
+}
 	
-} 
 var d=0;
 function check(){
 	var maSV = document.getElementsByClassName("maSV");

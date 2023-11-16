@@ -17,6 +17,7 @@
 		</c:if>
 		<c:if test="${sinhvien.getAvatarIcon() != \"\"}">
 			<img id="anhdaidien" src="data:image/png;base64,${sinhvien.getAvatarIcon()}" alt="avata" style="width: 200px;height: 200px">
+			<input type="hidden" id="anhdaidienhienco" value="${sinhvien.getAvatarIcon()}">
 		</c:if>	
 		<button onclick="chooseFile()">Đổi ảnh</button>
 		<input type="file" id="fileInput" style="display:none">

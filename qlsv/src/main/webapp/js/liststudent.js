@@ -8,8 +8,10 @@ $.ajax({
 		
 		var a = document.getElementById("boxdssv");
 		a.innerHTML += set;
-		document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
-		"&q=maSV&w=&e=maSV&r=0";
+		document.getElementById("q").value="maSV";
+		document.getElementById("w").value="";
+		document.getElementById("e").value="maSV";
+		document.getElementById("r").value="0";
 	}
 });
 
@@ -28,9 +30,6 @@ function setuptable(){
 function check(){
 	var desc=0;
 	var strFind = $('#strFind').val();
-	var utf8Data = new TextEncoder().encode(strFind);
-	var base64String = btoa(String.fromCharCode.apply(null, utf8Data));
-	strFind=base64String;
 	var sapxep = $('#sapxep').val();
 	$.ajax({
 		type:'post',
@@ -46,8 +45,10 @@ function check(){
 			setuptable();
 			var a = document.getElementById("boxdssv");
 			a.innerHTML += set;
-			document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
-		"&q="+sapxep+"&w="+strFind+"&e="+sapxep+"&r="+desc;
+			document.getElementById("q").value=sapxep;
+			document.getElementById("w").value=strFind;
+			document.getElementById("e").value=sapxep;
+			document.getElementById("r").value=desc;
 		}
 	});
 }
@@ -55,9 +56,6 @@ var masv=0;
 function sortmasv(){
 	var desc=masv;
 	var strFind = $('#strFind').val();
-	var utf8Data = new TextEncoder().encode(strFind);
-	var base64String = btoa(String.fromCharCode.apply(null, utf8Data));
-	strFind=base64String;
 	var sapxep = $('#sapxep').val();
 	$.ajax({
 		type:'post',
@@ -73,8 +71,10 @@ function sortmasv(){
 			setuptable();
 			var a = document.getElementById("boxdssv");
 			a.innerHTML += set;
-			document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
-		"&q="+sapxep+"&w="+strFind+"&e=maSV&r="+desc;
+			document.getElementById("q").value=sapxep;
+			document.getElementById("w").value=strFind;
+			document.getElementById("e").value=sapxep;
+			document.getElementById("r").value=desc;
 		}
 	});
 	if(masv==0) masv=1;
@@ -84,9 +84,6 @@ var tenSV=0;
 function sorttensv(){
 	var desc=tenSV;
 	var strFind = $('#strFind').val();
-	var utf8Data = new TextEncoder().encode(strFind);
-	var base64String = btoa(String.fromCharCode.apply(null, utf8Data));
-	strFind=base64String;
 	var sapxep = $('#sapxep').val();
 	$.ajax({
 		type:'post',
@@ -102,8 +99,10 @@ function sorttensv(){
 			setuptable();
 			var a = document.getElementById("boxdssv");
 			a.innerHTML += set;
-			document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
-		"&q="+sapxep+"&w="+strFind+"&e=tenSV&r="+desc;
+			document.getElementById("q").value=sapxep;
+			document.getElementById("w").value=strFind;
+			document.getElementById("e").value=sapxep;
+			document.getElementById("r").value=desc;
 		}
 	});
 	if(tenSV==0) tenSV=1;
@@ -113,9 +112,6 @@ var lopSV=0;
 function sortlopsv(){
 	var desc=lopSV;
 	var strFind = $('#strFind').val();
-	var utf8Data = new TextEncoder().encode(strFind);
-	var base64String = btoa(String.fromCharCode.apply(null, utf8Data));
-	strFind=base64String;
 	var sapxep = $('#sapxep').val();
 	$.ajax({
 		type:'post',
@@ -131,8 +127,10 @@ function sortlopsv(){
 			setuptable();
 			var a = document.getElementById("boxdssv");
 			a.innerHTML += set;
-			document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
-		"&q="+sapxep+"&w="+strFind+"&e=lopSV&r="+desc;
+			document.getElementById("q").value=sapxep;
+			document.getElementById("w").value=strFind;
+			document.getElementById("e").value=sapxep;
+			document.getElementById("r").value=desc;
 		}
 	});
 	if(lopSV==0) lopSV=1;
@@ -142,9 +140,6 @@ var gioiTinh=0;
 function sortgioitinh(){
 	var desc=gioiTinh;
 	var strFind = $('#strFind').val();
-	var utf8Data = new TextEncoder().encode(strFind);
-	var base64String = btoa(String.fromCharCode.apply(null, utf8Data));
-	strFind=base64String;
 	var sapxep = $('#sapxep').val();
 	$.ajax({
 		type:'post',
@@ -160,8 +155,10 @@ function sortgioitinh(){
 			setuptable();
 			var a = document.getElementById("boxdssv");
 			a.innerHTML += set;
-			document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
-		"&q="+sapxep+"&w="+strFind+"&e=gioiTinh&r="+desc;
+			document.getElementById("q").value=sapxep;
+			document.getElementById("w").value=strFind;
+			document.getElementById("e").value=sapxep;
+			document.getElementById("r").value=desc;
 		}
 	});
 	if(gioiTinh==0) gioiTinh=1;
@@ -171,9 +168,6 @@ var ngaySinh=0;
 function sortngaysinh(){
 	var desc=ngaySinh;
 	var strFind = $('#strFind').val();
-	var utf8Data = new TextEncoder().encode(strFind);
-	var base64String = btoa(String.fromCharCode.apply(null, utf8Data));
-	strFind=base64String;
 	var sapxep = $('#sapxep').val();
 	$.ajax({
 		type:'post',
@@ -189,8 +183,10 @@ function sortngaysinh(){
 			setuptable();
 			var a = document.getElementById("boxdssv");
 			a.innerHTML += set;
-			document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
-		"&q="+sapxep+"&w="+strFind+"&e=ngaySinh&r="+desc;
+			document.getElementById("q").value=sapxep;
+			document.getElementById("w").value=strFind;
+			document.getElementById("e").value=sapxep;
+			document.getElementById("r").value=desc;
 		}
 	});
 	if(ngaySinh==0) ngaySinh=1;
@@ -200,9 +196,6 @@ var soDienThoai=0;
 function sortsdt(){
 	var desc=soDienThoai;
 	var strFind = $('#strFind').val();
-	var utf8Data = new TextEncoder().encode(strFind);
-	var base64String = btoa(String.fromCharCode.apply(null, utf8Data));
-	strFind=base64String;
 	var sapxep = $('#sapxep').val();
 	$.ajax({
 		type:'post',
@@ -218,8 +211,10 @@ function sortsdt(){
 			setuptable();
 			var a = document.getElementById("boxdssv");
 			a.innerHTML += set;
-			document.getElementById("xuatexcel").href = "/qlsv/ServletQLSV?action=exportexcel"+
-		"&q="+sapxep+"&w="+strFind+"&e=soDienThoai&r="+desc;
+			document.getElementById("q").value=sapxep;
+			document.getElementById("w").value=strFind;
+			document.getElementById("e").value=sapxep;
+			document.getElementById("r").value=desc;
 		}
 	});
 	if(soDienThoai==0) soDienThoai=1;

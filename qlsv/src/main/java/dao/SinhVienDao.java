@@ -134,6 +134,7 @@ public class SinhVienDao {
 			statement.setString(9, sv.getGhiChu());
 			statement.setBlob(10, sv.getAvatar() != null ? new SerialBlob(sv.getAvatar()) : null);
 			statement.setString(11, maSVold);
+			System.out.println(statement);
 			boolean x= statement.executeUpdate() > 0;
 			disconnect();
 			return x;
@@ -158,6 +159,7 @@ public class SinhVienDao {
             statement.setString(8, sv.getDiaChi());
             statement.setString(9, sv.getGhiChu());
             statement.setBlob(10, sv.getAvatar() != null ? new SerialBlob(sv.getAvatar()) : null);
+            System.out.println(statement);
             boolean x= statement.executeUpdate() > 0;
             disconnect();
             return x;

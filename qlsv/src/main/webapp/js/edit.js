@@ -2,7 +2,7 @@ function chooseFile() {
     var fileInput = document.getElementById('fileInput');
     fileInput.click();
 }
-var base64Image = null;
+var base64Image = $('#anhdaidienhienco').val();
 document.getElementById('fileInput').addEventListener('change', function(event) {
     var file = event.target.files[0];
     var reader = new FileReader();
@@ -17,7 +17,8 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
     reader.readAsDataURL(file);
 });
 function check(){
-	document.getElementById('demo1').innerHTML = base64Image;
+	var tenSV = encodeURIComponent($('#tenSV').val());
+	document.getElementById('demo1').innerHTML = tenSV;
 }
 function huy(){
 	var isConfirmed = confirm("Bạn có chắc muốn đóng trang này? Dữ liệu sẽ không được lưu.");
@@ -64,26 +65,14 @@ function xoa(){
 function luu(){
 	var maSVold = $('#maSVold').val();
 	var maSV = $('#maSV').val();
-	var tenSV = $('#tenSV').val();
-	var utf8Data = new TextEncoder().encode(tenSV);
-	var base64String = btoa(String.fromCharCode.apply(null, utf8Data));
-	tenSV=base64String;
-	
+	var tenSV = encodeURIComponent($('#tenSV').val());
 	var lopSV = $('#lopSV').val();
 	var gioiTinh = document.querySelector('input[name="gender"]:checked').value;
 	var ngaySinh = $('#ngaySinh').val();
 	var soDienThoai = $('#soDienThoai').val();
 	var email = $('#email').val();
-	var diaChi = $('#diaChi').val();
-	utf8Data = new TextEncoder().encode(diaChi);
-	base64String = btoa(String.fromCharCode.apply(null, utf8Data));
-	diaChi=base64String;
-	
-	var ghiChu = $('#ghiChu').val();
-	utf8Data = new TextEncoder().encode(ghiChu);
-	base64String = btoa(String.fromCharCode.apply(null, utf8Data));
-	ghiChu=base64String;
-	
+	var diaChi = encodeURIComponent($('#diaChi').val());	
+	var ghiChu = encodeURIComponent($('#ghiChu').val());	
 	if(base64Image==null){
 		base64Image="";
 	}

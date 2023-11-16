@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -37,13 +38,11 @@ public class Update extends HttpServlet {
         sinhVienDao = new SinhVienDao(jdbcURL, jdbcUsername, jdbcPassword);
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws IOException,ServletException  {
+		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
 		System.out.println("Update: "+action);
 		try {
 	        switch (action) {
-	        case "checkexitstudent":
-	        	checkexitstudent(request,response);
-	        	break;
 	        case "deletestudent":
 	        	deletestudent(request,response);
 	        	break;
@@ -74,15 +73,6 @@ public class Update extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
-	private void checkexitstudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		// TODO Auto-generated method stub
-		String maSV = request.getParameter("maSV");
-		boolean x =sinhVienDao.checkexit(maSV);
-		PrintWriter out = response.getWriter();
-		if(x) out.print("ok");
-		else out.print("notok");
-	}
 	private void deletestudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		// TODO Auto-generated method stub
 		String maSV = request.getParameter("maSVold");
@@ -107,20 +97,14 @@ public class Update extends HttpServlet {
 			return;
 		}
 		String tenSV = request.getParameter("tenSV");
-		byte[] bytes = Base64.getDecoder().decode(tenSV);
-        String ten = new String(bytes);
 		String lopSV = request.getParameter("lopSV");
 		Integer gioiTinh = Integer.parseInt(request.getParameter("gioiTinh"));
 		String ngaySinh = request.getParameter("ngaySinh");
 		String soDienThoai = request.getParameter("soDienThoai");
 		String email = request.getParameter("email");
 		String diaChi = request.getParameter("diaChi");
-		bytes = Base64.getDecoder().decode(diaChi);
-        diaChi = new String(bytes);
 		String ghiChu = request.getParameter("ghiChu");
-		bytes = Base64.getDecoder().decode(ghiChu);
-		ghiChu = new String(bytes);
-		SinhVien sv = new SinhVien(maSV,ten,lopSV,gioiTinh,ngaySinh,soDienThoai,email,diaChi,ghiChu,base64);
+		SinhVien sv = new SinhVien(maSV,tenSV,lopSV,gioiTinh,ngaySinh,soDienThoai,email,diaChi,ghiChu,base64);
 		System.out.println("add "+sv);
 		
 		boolean x = sinhVienDao.addSinhVien(sv);
@@ -135,20 +119,14 @@ public class Update extends HttpServlet {
 		String maSVold = request.getParameter("maSVold").trim();
 		String maSV = request.getParameter("maSV").trim();
 		String tenSV = request.getParameter("tenSV");
-		byte[] bytes = Base64.getDecoder().decode(tenSV);
-        String ten = new String(bytes);
 		String lopSV = request.getParameter("lopSV");
 		Integer gioiTinh = Integer.parseInt(request.getParameter("gioiTinh"));
 		String ngaySinh = request.getParameter("ngaySinh");
 		String soDienThoai = request.getParameter("soDienThoai");
 		String email = request.getParameter("email");
 		String diaChi = request.getParameter("diaChi");
-		bytes = Base64.getDecoder().decode(diaChi);
-        diaChi = new String(bytes);
 		String ghiChu = request.getParameter("ghiChu");
-		bytes = Base64.getDecoder().decode(ghiChu);
-		ghiChu = new String(bytes);
-		SinhVien sv = new SinhVien(maSV,ten,lopSV,gioiTinh,ngaySinh,soDienThoai,email,diaChi,ghiChu,base64);
+		SinhVien sv = new SinhVien(maSV,tenSV,lopSV,gioiTinh,ngaySinh,soDienThoai,email,diaChi,ghiChu,base64);
 		System.out.println("save "+sv);
 		
 		boolean x = sinhVienDao.updateSinhVien(sv, maSVold);
@@ -200,8 +178,6 @@ public class Update extends HttpServlet {
 		String desc = request.getParameter("desc");
 		boolean x = desc.equals("1") ?  true : false;
 		String strFind = request.getParameter("strFind");
-		byte[] bytes = Base64.getDecoder().decode(strFind);
-		strFind = new String(bytes);
 		String sortBy = request.getParameter("sortBy");	
 //		System.out.println(typesort+" '"+strFind+"' "+sortBy+" "+desc.toString());
 		List<SinhVien> list = sinhVienDao.findAll(typesort, strFind, sortBy, x);

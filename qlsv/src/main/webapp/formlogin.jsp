@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +16,7 @@
         <div style="display: flex;width: 20%;">
             <div style="width: 100px;text-align: left;">Tài Khoản:</div>
             <div style="display: inline;">
-                <input  type="text" id="username">
+                <input  type="text" id="username" required="required">
                 <p style="display: inline;color: red;" id="p1"></p>
             </div>
             
@@ -26,7 +25,7 @@
         <div style="display: flex;width: 20%;">
             <div  style="width: 100px;text-align: left;">Mật khẩu:</div>
             <div style="display: inline;">
-                <input  type="password" id="password">
+                <input  type="password" id="password" required="required">
                 <p style="display: inline;color: red;" id="p2"></p>
             </div>
         </div>

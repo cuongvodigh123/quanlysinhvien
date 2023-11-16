@@ -18,20 +18,31 @@
            	<a href="/qlsv/ServletQLSV?action=excel" target="_blank">Nhập File Excel</a>
         </h2>
     </center>
-    <div align="center">
-    <p>Tìm theo:</p>
-    <select id="sapxep">
-    	<option value="maSV">Mã sinh viên</option>
-    	<option value="tenSV">Tên sinh viên</option>
-    	<option value="lopSV">Lớp</option>
-    	<option value="gioiTinh">Giới tính</option>
-    	<option value="ngaySinh">Ngày sinh</option>
-    	<option value="soDienThoai">Số điện thoại</option>
-    </select>
-    <input id="strFind" type="text">
-    <button id="check" onclick="check()">Tìm</button>
-    <br>
-    <a id="xuatexcel" href="" target="_blank">Xuất File Excel Danh Sách Đang Hiển Thị</a>
+    <div> 
+    <div style="display: flex;;justify-content:center;align-items: center;flex-direction: column;">
+    	<div>
+		   <p>Tìm theo:</p>
+		    <select id="sapxep">
+		    	<option value="maSV">Mã sinh viên</option>
+		    	<option value="tenSV">Tên sinh viên</option>
+		    	<option value="lopSV">Lớp</option>
+		    	<option value="gioiTinh">Giới tính</option>
+		    	<option value="ngaySinh">Ngày sinh</option>
+		    	<option value="soDienThoai">Số điện thoại</option>
+		    </select>
+		    <input id="strFind" type="text">
+		    <button id="check" onclick="check()">Tìm</button>
+	    </div>
+	    <br>
+	    <form action="ServletQLSV" method="post" target="_blank">
+	    	<input type="hidden" name="action" value="exportexcel">
+	    	<input id="q" type="hidden" name="q" value="">
+	    	<input id="w" type="hidden" name="w" value="">
+	    	<input id="e" type="hidden" name="e" value="">
+	    	<input id="r" type="hidden" name="r" value="">
+	    	<button type="submit" style="width: auto;height: 50px">Xuất File Excel Danh Sách Đang Hiển Thị</button>
+	    </form>
+	    <br>
         <table id="boxdssv" border="1" cellpadding="5">
             <caption><h2>Danh sách</h2></caption>
             <tr>
@@ -44,6 +55,7 @@
             </tr>     
             <!-- <td><a href="/qlsv/ServletQLSV?goto=edit&maSV=masinhvien" target="_blank">mã sinh viên</a></td> -->
         </table>
+    </div>
     </div>   
 </body>
 <script type="text/javascript" src="js/liststudent.js"></script>

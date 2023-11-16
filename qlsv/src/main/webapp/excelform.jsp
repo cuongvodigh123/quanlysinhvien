@@ -24,6 +24,7 @@
         <div id="excel_data" class="mt-5"></div>
         <button onclick="savexcel()">Lưu</button>
         <div id="demo"></div>
+        <div id="demo1"></div>
     </div>
     <button onclick="check()">check</button>
     
