@@ -21,11 +21,7 @@ public class CheckLogin extends HttpServlet {
     private AccountDao accountDao;
 
     public void init() {
-        String jdbcURL = getServletContext().getInitParameter("jdbcURL");
-        String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
-        String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
- 
-        accountDao = new AccountDao(jdbcURL, jdbcUsername, jdbcPassword);
+        accountDao = new AccountDao();
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");

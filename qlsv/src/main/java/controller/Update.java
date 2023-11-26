@@ -30,12 +30,8 @@ public class Update extends HttpServlet {
     private SinhVienDao sinhVienDao;
 
     public void init() {
-        String jdbcURL = getServletContext().getInitParameter("jdbcURL");
-        String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
-        String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
- 
-        accountDao = new AccountDao(jdbcURL, jdbcUsername, jdbcPassword);
-        sinhVienDao = new SinhVienDao(jdbcURL, jdbcUsername, jdbcPassword);
+        accountDao = new AccountDao();
+        sinhVienDao = new SinhVienDao();
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws IOException,ServletException  {
 		request.setCharacterEncoding("UTF-8");

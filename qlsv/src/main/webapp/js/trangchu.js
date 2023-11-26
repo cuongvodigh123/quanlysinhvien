@@ -110,5 +110,15 @@ function checkmk(){
 function dssv(){
 	document.getElementById("gotodssv").click();
 }
-
-
+function dsmh(){
+	document.getElementById("gotodsmh").click();
+}
+function dsnh(){
+	document.getElementById("gotodsnh").click();
+}
+function dskhoa(){
+	document.getElementById("gotodskhoa").click();
+}
+function dsgiangvien(){
+	document.getElementById("gotodsgiangvien").click();
+}

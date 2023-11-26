@@ -13,40 +13,11 @@ import javax.sql.rowset.serial.SerialBlob;
 import model.Account;
 
 public class AccountDao {
-	private String jdbcURL;
-    private String jdbcUsername;
-    private String jdbcPassword;
-    private Connection jdbcConnection;
-     
-    public AccountDao(String jdbcURL, String jdbcUsername, String jdbcPassword) {
-        this.jdbcURL = jdbcURL;
-        this.jdbcUsername = jdbcUsername;
-        this.jdbcPassword = jdbcPassword;
-    }
-     
-    protected void connect() throws SQLException {
-        if (jdbcConnection == null || jdbcConnection.isClosed()) {
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-            } catch (ClassNotFoundException e) {
-            	System.out.println("Lỗi kết nối cơ sở dữ liệu.");
-                throw new SQLException(e);
-            }
-            jdbcConnection = DriverManager.getConnection(
-                                        jdbcURL, jdbcUsername, jdbcPassword);
-        }
-    }
-     
-    protected void disconnect() throws SQLException {
-        if (jdbcConnection != null && !jdbcConnection.isClosed()) {
-            jdbcConnection.close();
-        }
-    }
+	private Connection jdbcConnection = new DAO().connect();
     
     public Account checklogin(String user,String pass){
     	try {
     		String sql = "select * from tai_khoan where username = ? and password = ?";
-    		connect();
     		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
     		statement.setString(1, user);
     		statement.setString(2, pass);
@@ -62,7 +33,6 @@ public class AccountDao {
     			}else {
     				acc.setAvatar(null);
     			}
-    			disconnect();
     			return acc;
     		}		
     	}catch (SQLException e) {
@@ -74,7 +44,6 @@ public class AccountDao {
     public Account getUser(String username) {
     	try {
     		String sql = "select * from tai_khoan where username = ?";
-    		connect();
     		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
     		statement.setString(1, username);
     		ResultSet set = statement.executeQuery();
@@ -89,7 +58,6 @@ public class AccountDao {
     			}else {
     				acc.setAvatar(null);
     			}
-    			disconnect();
     			return acc;
     		}		
     	}catch (SQLException e) {
@@ -101,12 +69,10 @@ public class AccountDao {
     public boolean updateAccount(String userName, String passName) {
     	try {
     		String sql = "UPDATE tai_khoan SET password = ? WHERE username = ?";
-    		connect();
     		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
     		statement.setString(1, passName);
     		statement.setString(2, userName);
     		boolean x=statement.executeUpdate() > 0;
-    		disconnect();
     		return x;
     	}catch (SQLException e) {
 			System.out.println("Lỗi update account 1.");
@@ -116,12 +82,10 @@ public class AccountDao {
     public boolean updateImage(String username,String base64) {
     	try {
     		String sql = "UPDATE tai_khoan SET avatar = ? WHERE username = ?";
-    		connect();
     		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
     		statement.setBlob(1, new SerialBlob(Base64.getDecoder().decode(base64)));
     		statement.setString(2, username);
     		boolean x = statement.executeUpdate() > 0;
-    		disconnect();
     		return x;
     	}catch (SQLException e) {
     		System.out.println("Lỗi update account 2.");

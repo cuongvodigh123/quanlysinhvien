@@ -18,35 +18,7 @@ import model.Account;
 import model.SinhVien;
 
 public class SinhVienDao {
-	private String jdbcURL;
-    private String jdbcUsername;
-    private String jdbcPassword;
-    private Connection jdbcConnection;
-     
-    public SinhVienDao(String jdbcURL, String jdbcUsername, String jdbcPassword) {
-        this.jdbcURL = jdbcURL;
-        this.jdbcUsername = jdbcUsername;
-        this.jdbcPassword = jdbcPassword;
-    }
-     
-    protected void connect() throws SQLException {
-        if (jdbcConnection == null || jdbcConnection.isClosed()) {
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-            } catch (ClassNotFoundException e) {
-            	System.out.println("Lỗi kết nối cơ sở dữ liệu.");
-                throw new SQLException(e);
-            }
-            jdbcConnection = DriverManager.getConnection(
-                                        jdbcURL, jdbcUsername, jdbcPassword);
-        }
-    }
-     
-    protected void disconnect() throws SQLException {
-        if (jdbcConnection != null && !jdbcConnection.isClosed()) {
-            jdbcConnection.close();
-        }
-    }
+	private Connection jdbcConnection = new DAO().connect();
 	private SinhVien createSinhVien(ResultSet rs) {
 		SinhVien sv = new SinhVien();
         try {
@@ -81,7 +53,6 @@ public class SinhVienDao {
             if(asc==true) {
             	sql.append(" DESC");
             }
-            connect();
             PreparedStatement statement = jdbcConnection.prepareStatement(sql.toString());
             statement.setString(1, "%" + strFind + "%");
 //            System.out.println(statement.toString());
@@ -90,7 +61,6 @@ public class SinhVienDao {
                 SinhVien sv = createSinhVien(rs);
                 list.add(sv);
             }
-            disconnect();
 		}catch (SQLException e) {
 			System.out.println("Lỗi find all sinh viên.");
 		}
@@ -100,14 +70,12 @@ public class SinhVienDao {
 		SinhVien sv = null;
 		try {
 			String sql = "select * from sinh_vien where maSV = ?";
-			connect();
 			PreparedStatement statement = jdbcConnection.prepareStatement(sql);
 			statement.setString(1, maSV);
 			ResultSet set = statement.executeQuery();
 			while(set.next()) {
 				sv = createSinhVien(set);
 			}
-			disconnect();
 			return sv;
 		}catch (SQLException e) {
 			System.out.println("loi get sinh vien.");
@@ -121,7 +89,6 @@ public class SinhVienDao {
                     + "ngaySinh = ? ," + "soDienThoai = ? ," + "email = ? ,"
                     + "diaChi = ? ," + "ghiChu = ? ," + "avatar = ? "
                     + "WHERE (maSV = ?)";
-			connect();
 			PreparedStatement statement = jdbcConnection.prepareStatement(sql);
 			statement.setString(1, sv.getMaSV());
 			statement.setString(2, sv.getTenSV());
@@ -136,7 +103,6 @@ public class SinhVienDao {
 			statement.setString(11, maSVold);
 			System.out.println(statement);
 			boolean x= statement.executeUpdate() > 0;
-			disconnect();
 			return x;
 		}catch (SQLException e) {
 			System.out.println("lỗi update sinh viên.");
@@ -147,7 +113,6 @@ public class SinhVienDao {
         try {
             String sql = "INSERT INTO sinh_vien (maSV,tenSV,lopSV,gioiTinh,ngaySinh,soDienThoai,email,diaChi,ghiChu,avatar)"
                     + " VALUES (?,?,?,?,?,?,?,?,?,?);";
-            connect();
             PreparedStatement statement = jdbcConnection.prepareStatement(sql);
             statement.setString(1, sv.getMaSV());
             statement.setString(2, sv.getTenSV());
@@ -161,7 +126,6 @@ public class SinhVienDao {
             statement.setBlob(10, sv.getAvatar() != null ? new SerialBlob(sv.getAvatar()) : null);
             System.out.println(statement);
             boolean x= statement.executeUpdate() > 0;
-            disconnect();
             return x;
         } catch (SQLException ex) {
             System.out.println("Lỗi add Sinh viên.");
@@ -171,7 +135,6 @@ public class SinhVienDao {
 	public boolean deleteSinhVien(String maSV) {
         try {
             String sql = "DELETE FROM sinh_vien WHERE (maSV = ?);";
-            connect();
             PreparedStatement statement = jdbcConnection.prepareStatement(sql);
             statement.setString(1, maSV);
             boolean x = statement.executeUpdate()>0;
@@ -185,12 +148,10 @@ public class SinhVienDao {
 	public boolean checkexit(String maSV) {
 		try {
     		String sql = "select * from sinh_vien where maSV = ? ";
-    		connect();
     		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
     		statement.setString(1, maSV);
     		ResultSet set = statement.executeQuery();
     		if(set.next()) {
-    			disconnect();
     			return true;
     		}		
     	}catch (SQLException e) {

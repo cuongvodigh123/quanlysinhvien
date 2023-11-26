@@ -14,10 +14,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.AccountDao;
+import dao.GiangVienDao;
+import dao.KhoaDao;
+import dao.MonHocDao;
+import dao.KyHocDao;
 import dao.SinhVienDao;
 import model.Account;
+import model.GiangVien;
+import model.Khoa;
+import model.KyHoc;
+import model.MonHoc;
 import model.SinhVien;
-import model.Test;
 
 /**
  * Servlet implementation class AjaxController
@@ -30,12 +37,8 @@ public class ServletQLSV extends HttpServlet {
  
     private Account acountAccount = null;
     public void init() {
-        String jdbcURL = getServletContext().getInitParameter("jdbcURL");
-        String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
-        String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
- 
-        accountDao = new AccountDao(jdbcURL, jdbcUsername, jdbcPassword);
-        sinhVienDao = new SinhVienDao(jdbcURL, jdbcUsername, jdbcPassword);
+        accountDao = new AccountDao();
+        sinhVienDao = new SinhVienDao();
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -50,6 +53,9 @@ public class ServletQLSV extends HttpServlet {
 		}
         try {
             switch (s1) {
+            case "listmonhoc":
+            	listmonhoc(request,response);
+            	break;
             case "exportexcel":
             	exportexcel(request,response);
             	break;
@@ -68,6 +74,15 @@ public class ServletQLSV extends HttpServlet {
             case "login":
             	login(request, response);
                 break;
+            case "listkyhoc":
+            	xemnamhoc(request,response);
+            	break;
+            case "listkhoa":
+            	xemkhoa(request,response);
+            	break;
+            case "listgiangvien":
+            	listgiangvien(request,response);
+            	break;
             default:
             	if(acountAccount == null) {
             		login(request, response);
@@ -77,7 +92,56 @@ public class ServletQLSV extends HttpServlet {
             throw new ServletException(ex);
         }
 	}
-
+	
+	private void listgiangvien(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
+		// TODO Auto-generated method stub
+		String username = request.getParameter("username");
+		acountAccount = accountDao.getUser(username);
+		if(acountAccount == null) {
+			login(request, response);
+		}
+		List<GiangVien> list = new GiangVienDao().getListGiangVien();
+		request.setAttribute("list", list);
+		request.setAttribute("acountAccount", acountAccount);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/giangvien/listgiangvien.jsp");
+		dispatcher.forward(request, response);
+	}
+	
+	private void xemkhoa(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
+		// TODO Auto-generated method stub
+		String username = request.getParameter("username");
+		acountAccount = accountDao.getUser(username);
+		if(acountAccount == null) {
+			login(request, response);
+		}
+		List<Khoa> list = new KhoaDao().getListKhoa();
+		request.setAttribute("list", list);
+		request.setAttribute("acountAccount", acountAccount);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/khoa/listkhoa.jsp");
+		dispatcher.forward(request, response);
+	}
+	
+	private void xemnamhoc(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
+		// TODO Auto-generated method stub
+		String username = request.getParameter("username");
+		acountAccount = accountDao.getUser(username);
+		if(acountAccount == null) {
+			login(request, response);
+		}
+		List<KyHoc> list = new KyHocDao().getListNamHoc();
+		request.setAttribute("list", list);
+		request.setAttribute("acountAccount", acountAccount);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/kyhoc/listkyhoc.jsp");
+		dispatcher.forward(request, response);
+	}
+	private void listmonhoc(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
+		// TODO Auto-generated method stub
+		List<MonHoc> list = new MonHocDao().getListMonHoc();
+		request.setAttribute("list", list);
+		request.setAttribute("acountAccount", acountAccount);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/monhoc/listmonhoc.jsp");
+		dispatcher.forward(request, response);
+	}
 	private void exportexcel(HttpServletRequest request, HttpServletResponse response)throws SQLException,IOException,ServletException{
 		// TODO Auto-generated method stub
 		String q = request.getParameter("q");
@@ -94,12 +158,12 @@ public class ServletQLSV extends HttpServlet {
 		List<SinhVien> list = sinhVienDao.findAll(q, w, e, r.equals("1")?true:false);
 		request.setAttribute("list", list);
 		request.setAttribute("test", "xinchao123");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("xuatexcel.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/xuatexcel.jsp");
 		dispatcher.forward(request, response);
 	}
 	private void excelform(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
 		// TODO Auto-generated method stub
-		RequestDispatcher dispatcher = request.getRequestDispatcher("excelform.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/excelform.jsp");
 		dispatcher.forward(request, response);
 	}
 	private void editstudent(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
@@ -115,7 +179,7 @@ public class ServletQLSV extends HttpServlet {
 		}
 	
 		request.setAttribute("sinhvien", sinhvien);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("editstudent.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/editstudent.jsp");
 		dispatcher.forward(request, response);
 		
 	}
@@ -127,13 +191,13 @@ public class ServletQLSV extends HttpServlet {
 			login(request, response);
 		}
 		request.setAttribute("acountAccount", acountAccount);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("trangchu.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/trangchu.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	private void login(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException {
 		// TODO Auto-generated method stub
-		RequestDispatcher dispatcher = request.getRequestDispatcher("formlogin.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/formlogin.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -143,7 +207,7 @@ public class ServletQLSV extends HttpServlet {
     	}
 		// TODO Auto-generated method stub
 		request.setAttribute("acountAccount", acountAccount);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("listsinhvien.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/listsinhvien.jsp");
 		dispatcher.forward(request, response);
 	}
 	
