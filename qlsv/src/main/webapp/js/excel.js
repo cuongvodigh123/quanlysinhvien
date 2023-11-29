@@ -25,7 +25,6 @@ function savexcel(){
 		var maSV1 = maSV[i].value;
 		if(maSV1=="") continue;
 		var tenSV1 = tenSV[i].value;
-		tenSV1=encodeURIComponent(tenSV1);
 		var lopSV1 = lopSV[i].value;
 		var gioiTinh1 = gioiTinh[i].value;
 		if(gioiTinh1=='Nam') gioiTinh1 = 1;
@@ -34,9 +33,7 @@ function savexcel(){
 		var soDienThoai1 = soDienThoai[i].value;
 		var email1 = email[i].value;
 		var diaChi1 = diaChi[i].value;
-		diaChi1=encodeURIComponent(diaChi1);
 		var ghiChu1 = ghiChu[i].value;
-		ghiChu1=encodeURIComponent(ghiChu1);
 		var base64Image="";
 		
 		var action ="addstudent";
@@ -44,7 +41,6 @@ function savexcel(){
 			type: 'post',
 			data: {
 				base64 : base64Image,
-				maSVold :"",
 				maSV : maSV1,
 				tenSV : tenSV1,
 				lopSV : lopSV1,
@@ -58,16 +54,15 @@ function savexcel(){
 			},
 			url : 'Update',
 			success: function(result){	
-				if(result=='ok'){
-					document.getElementById("demo").innerHTML += "OK "+maSV1+". ";
+				if(result=="ok"){
 				}else{	
-					document.getElementById("demo").innerHTML += "NOT OK "+maSV1+". ";
+					document.getElementById("demo").innerHTML += result;
 				}
 			}
 		});
 	}
 }
-	
+
 var d=0;
 function check(){
 	var maSV = document.getElementsByClassName("maSV");
@@ -121,7 +116,7 @@ excel_file.addEventListener('change', (event) => {
                     {
                         if(p==0) table_output += '<td>'+sheet_data[row][cell]+'</td>';
                         else if (p==1) {
-                            table_output += '<td><input type="text" style="width: 85px;" class="'+maid[p]+'" value="'+sheet_data[row][cell]+'"></td>';
+                            table_output += '<td><input type="text" id="'+sheet_data[row][cell]+'" style="width: 85px;" class="'+maid[p]+'" value="'+sheet_data[row][cell]+'"></td>';
                             idsinhvien=sheet_data[row][cell];
                         }
                         else if (p==2) table_output += '<td><input type="text" style="width: 160px;" class="'+maid[p]+'" value="'+sheet_data[row][cell]+'"></td>';

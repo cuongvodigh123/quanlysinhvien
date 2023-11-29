@@ -70,13 +70,29 @@ private Connection jdbcConnection = new DAO().connect();
         }
         return false;
     }
+    public String getIDSTT() {
+		Integer id = 1;
+		try {
+    		String sql="SELECT * FROM quanlysv.monhockyhoc";
+    		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+    		ResultSet rs = statement.executeQuery();
+    		while(rs.next()) {
+    			id+=1;
+    		}
+    		return String.valueOf(id);
+    	}catch(SQLException e){
+    		System.out.println("Loi get id stt");
+    	}
+    	return String.valueOf(id);
+	}
     public boolean insertMonHocKyHoc(MonHocKyHoc mh) {
     	try {
             String sql = "INSERT INTO `quanlysv`.`monhockyhoc` (`id`, `idmonhoc`, `idkyhoc`) VALUES (?, ?, ?);";
             PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-            statement.setString(1, String.valueOf(mh.getId()));
+            statement.setString(1, getIDSTT());
             statement.setString(2, mh.getMh().getIdmonhoc());
             statement.setString(3, String.valueOf(mh.getKyhoc().getId()));
+            System.out.println(statement);
             boolean x = statement.executeUpdate()>0;
             return x;
         } catch (SQLException ex) {

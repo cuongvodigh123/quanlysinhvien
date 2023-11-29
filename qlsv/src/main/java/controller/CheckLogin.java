@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.AccountDao;
+import dao.UpdateMKSV;
 import model.Account;
 
 /**
@@ -24,15 +25,28 @@ public class CheckLogin extends HttpServlet {
         accountDao = new AccountDao();
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String vaitro = request.getParameter("vaitro");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		Account acc = accountDao.checklogin(username, password);
+//		System.out.println(vaitro+" "+username+" "+password);
 		PrintWriter out = response.getWriter();
-		if(acc==null) {
-			out.print("error");
+		if(vaitro.equals("giangvien")) {
+			Account acc = accountDao.checklogin(username, password);
+			if(acc==null) {
+				out.print("error");
+			}else {
+				out.print("giangvien");
+			}
 		}else {
-			out.print(username);
+			boolean x = new UpdateMKSV().checkTK(username, password);
+			if(!x) {
+				out.print("error");
+			}else {
+				out.print("sinhvien");
+			}
 		}
+		
+		
 	}
 
 }

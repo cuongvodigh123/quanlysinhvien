@@ -51,6 +51,7 @@
                <table class="table table-bordered" id="student_data">
                    <thead>
                        <tr>
+                       		<th>Số thứ tự</th>
                            <th>Mã sinh viên</th>
                            <th>Tên sinh viên</th>
                            <th>Điểm 10%</th>
@@ -62,7 +63,8 @@
                    <tbody>
                     <c:forEach var="ketqua" items="${list}">
                         <tr>
-                        	<td style="display: none;"><p class="iddangkyhoc">${ketqua.getDangkyhoc().getId() }</p></td>
+                        	<p class="iddangkyhoc" style="display: none;">${ketqua.getDangkyhoc().getId() }</p>
+                        	<td><p class="sttbang"></p></td>
                             <td><p>${ketqua.getDangkyhoc().getSinhvien().getMaSV()}</p></td>
                             <td><p>${ketqua.getDangkyhoc().getSinhvien().getTenSV()}</p></td>
                             <td><p class="diem1">${ketqua.getDiem1()}</p></td>

@@ -91,3 +91,5 @@ function luudiem(id,d1,d2,d3){
 		}
 	})
 }
+var sttbang = document.getElementsByClassName("sttbang");
+for(var i=1;i<=sttbang.length;i++) sttbang[i-1].innerHTML=i;

@@ -12,6 +12,26 @@ import model.KyHoc;
 public class KyHocDao {
 	private Connection jdbcConnection = new DAO().connect();
 	
+	public List<KyHoc> getListKyDangKy() {
+    	List<KyHoc> list = new ArrayList<KyHoc>();
+    	try {
+    		String sql="SELECT * FROM quanlysv.kyhoc where danghoc = 2";
+    		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+    		ResultSet rs = statement.executeQuery();
+    		while(rs.next()) {
+    			String id = rs.getString("id");
+    			String danghoc = rs.getString("danghoc");
+    			String mota = rs.getString("mota");
+    			KyHoc s = new KyHoc(Integer.parseInt(id), Integer.parseInt(danghoc), mota);
+    			list.add(s);
+    		}
+    		return list;
+    	}catch(SQLException e){
+    		System.out.println("Loi get list ky hoc cho sinh vien dang ky");
+    	}
+    	return null;
+    }
+	
 	public List<KyHoc> getListNamHoc() {
     	List<KyHoc> list = new ArrayList<KyHoc>();
     	try {

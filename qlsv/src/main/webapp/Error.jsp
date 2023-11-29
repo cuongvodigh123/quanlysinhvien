@@ -5,7 +5,6 @@
 <html>
 <head>
 <title>Error</title>
-<link rel="icon" type="image/x-icon" href="image/ech.png">
 </head>
 <body>
     <center>

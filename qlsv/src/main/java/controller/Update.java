@@ -36,12 +36,8 @@ public class Update extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)throws IOException,ServletException  {
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
-		System.out.println("Update: "+action);
 		try {
 	        switch (action) {
-	        case "deletestudent":
-	        	deletestudent(request,response);
-	        	break;
 	        case "addstudent":
 	        	addstudent(request,response);
 	        	break;
@@ -69,24 +65,10 @@ public class Update extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	private void deletestudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		// TODO Auto-generated method stub
-		String maSV = request.getParameter("maSVold");
-		boolean x =sinhVienDao.deleteSinhVien(maSV);
-		PrintWriter out = response.getWriter();
-		if(x) out.print("ok");
-		else out.print("notok");
-	}
 	private void addstudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException{
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
 		String base64 = request.getParameter("base64");
-		String maSVold = request.getParameter("maSVold").trim();
-		System.out.println("ma sinh vien cu '"+maSVold+"'");
-		if(!maSVold.equals("")) {
-			out.print("notok");
-			return;
-		}
 		String maSV = request.getParameter("maSV").trim();
 		if(maSV.length()!=10) {
 			out.print("notok");
@@ -186,12 +168,19 @@ public class Update extends HttpServlet {
 		String res = "";
 		for(SinhVien x:list) {
 			res+=	"                <tr>\r\n"
-					+ "                    <td><a href=\"/qlsv/ServletQLSV?action=edit&maSV="+x.getMaSV()+"\" target=\"_blank\">"+x.getMaSV()+"</td>\r\n"
+					+ "                    <td>"+x.getMaSV()+"</td>\r\n"
 					+ "                    <td>"+x.getTenSV()+"</td>\r\n"
 					+ "                    <td>"+x.getLopSV()+"</td>\r\n"
 					+ "                    <td>"+x.getGioiTinhString()+"</td>\r\n"
 					+ "                    <td>"+x.getNgaySinh()+"</td>\r\n"
 					+ "                    <td>"+x.getSoDienThoai()+"</td>\r\n"
+					+ "<td>\r\n"
+					+ "                    	<form action=\"ServletQLSV\" method=\"post\">\r\n"
+					+ "                    		<input type=\"hidden\" name=\"maSVold\" value=\""+x.getMaSV()+"\">\r\n"
+					+ "                    		<input type=\"hidden\" name=\"action\" value=\"deletestudent\">\r\n"
+					+ "                    		<button type=\"submit\">Xóa</button>\r\n"
+					+ "                    	</form>\r\n"
+					+ "                    </td>"
 					+ "                </tr>\r\n";
 		}
 		

@@ -14,28 +14,41 @@ import model.SinhVien;
 public class DangKyHocDao {
 	private Connection jdbcConnection = new DAO().connect();
 	
-//	public List<DangKyHoc> getListDangKyHoc(String idlophocphan) {
-//    	List<DangKyHoc> list = new ArrayList<DangKyHoc>();
-//    	try {
-//    		String sql="SELECT * FROM quanlysv.dangkyhoc where idsttlophocphan = ?";
-//    		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-//    		statement.setString(1, idlophocphan);
-//    		ResultSet rs = statement.executeQuery();
-//    		while(rs.next()) {
-//    			String id = rs.getString("id");
-//    			String idsinhvien = rs.getString("idsinhvien");
-//    			SinhVien sv = new SinhVienDao().getSinhVien(idsinhvien); 
-//    			String idsttlophocphan = rs.getString("idsttlophocphan");
-//    			LopHocPhan lhp = new LopHocPhanDao().getLopHocPhan(idsttlophocphan);
-//    			DangKyHoc s = new DangKyHoc(Integer.parseInt(id), sv, lhp);
-//    			list.add(s);
-//    		}
-//    		return list;
-//    	}catch(SQLException e){
-//    		System.out.println("Loi get list dang ky hoc");
-//    	}
-//    	return null;
-//    }
+	public Integer getDaDangKy(Integer idlhp,String masv) {
+		try {
+			String sql="SELECT * FROM quanlysv.dangkyhoc where idsttlophocphan = ? and idsinhvien = ?";
+			PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+			statement.setString(1, String.valueOf(idlhp));
+			statement.setString(2, masv);
+			ResultSet rs = statement.executeQuery();
+			int x=0;
+			while(rs.next()) {
+				x+=1;
+			}
+			if(x==1) return 1;
+			else return 0;
+		}catch(SQLException e){
+			System.out.println("Loi get list LopHocPhan so luong con lai de dang ky");
+		}
+		return 1;
+	}
+	
+	public Integer getSLConLai(String idstt) {
+		try {
+			String sql="SELECT * FROM quanlysv.dangkyhoc where idsttlophocphan = ?";
+			PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+			statement.setString(1, idstt);
+			ResultSet rs = statement.executeQuery();
+			int x=0;
+			while(rs.next()) {
+				x+=1;
+			}
+			return x;
+		}catch(SQLException e){
+			System.out.println("Loi get list LopHocPhan so luong con lai de dang ky");
+		}
+		return 0;
+	}
 	public DangKyHoc getDangKyHoc(String idkhoa) {
 		DangKyHoc list = null;
     	try {
@@ -57,11 +70,12 @@ public class DangKyHocDao {
     	}
     	return list;
     }
-	public boolean deleteDangKyHoc(String id) {
+	public boolean deleteDangKyHoc(String idlhp,String masv) {
     	try {
-            String sql = "DELETE FROM `quanlysv`.`dangkyhoc` WHERE (`id` = ?);";
+            String sql = "DELETE FROM `quanlysv`.`dangkyhoc` WHERE idsinhvien = ? and idsttlophocphan = ?";
             PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-            statement.setString(1, id);
+            statement.setString(1, masv);
+            statement.setString(2, idlhp);
             boolean x = statement.executeUpdate()>0;
             return x;
         } catch (SQLException ex) {
@@ -69,16 +83,36 @@ public class DangKyHocDao {
         }
         return false;
     }
-	public boolean insertDangKyHoc(DangKyHoc mh) {
+	public String getIDSTT() {
+		Integer id = null;
+		try {
+    		String sql="SELECT * FROM quanlysv.dangkyhoc";
+    		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+    		ResultSet rs = statement.executeQuery();
+    		while(rs.next()) {
+    			id= Integer.parseInt(rs.getString("id"));
+    		}
+    		return String.valueOf(id+1);
+    	}catch(SQLException e){
+    		System.out.println("Loi get id stt dang ky hoc");
+    	}
+    	return String.valueOf(id);
+	}
+	public boolean insertDangKyHoc(String idlhp,String masv) {
     	try {
-            String sql = "INSERT INTO `quanlysv`.`DangKyHoc` (`id`, `idsinhvien`, `idsttlophocphan`) VALUES (?, ?, ?);";
+    		String pp= getIDSTT();
+            String sql = "INSERT INTO `quanlysv`.`dangkyhoc` (`id`, `idsinhvien`, `idsttlophocphan`) VALUES (?, ?, ?);";
             PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-            statement.setString(1, String.valueOf(mh.getId()));
-            statement.setString(2, mh.getSinhvien().getMaSV());
-            statement.setString(3, mh.getLophocphan().getId());
+            statement.setString(1, pp);
+            statement.setString(2, masv);
+            statement.setString(3, idlhp);
+            System.out.println(pp+" "+masv+" "+idlhp);
+            System.out.println(statement);
+            
             boolean x = statement.executeUpdate()>0;
-         
-            return x;
+            boolean xx = new KetQuaDao().insertKetQuaNull(pp);
+     
+            return x&&xx;
         } catch (SQLException ex) {
             System.out.println("Lỗi insert dang ky hoc.");
         }

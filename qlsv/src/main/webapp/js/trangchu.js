@@ -122,3 +122,20 @@ function dskhoa(){
 function dsgiangvien(){
 	document.getElementById("gotodsgiangvien").click();
 }
+function resetTKSV(){
+	var x = document.getElementById("resettaikhoan").value;
+	$.ajax({
+		type: 'post',
+		data : {
+			masv:x,
+			action : "resettaikhoan"
+		},
+		url : 'ServletQLSV',
+		success : function(result){
+			if(result=='ok'){
+				 alert("Reset tài khoản sinh viên thành công.");
+				 document.getElementById("resettaikhoan").value="";
+			}
+		}
+	});	
+}

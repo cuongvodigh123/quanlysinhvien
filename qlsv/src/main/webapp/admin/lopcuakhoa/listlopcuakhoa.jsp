@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Danh sách Khoa</title>
+    <title>Danh sách lớp</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="icon" type="image/x-icon" href="image/ech.png">
 	<script type="text/javascript" src="js/jquery-1.6.2.js"></script>
@@ -14,9 +14,9 @@
         <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
             <div>
             	<form action="ServletQLSV" method="get">
-            		<input type="hidden" name="action" value="trangchu">
+            		<input type="hidden" name="action" value="listkhoa">
             		<input type="hidden" name="username" value="${acountAccount.getUsername()}" >
-					<button type="submit" >Trang chủ</button>            		
+					<button type="submit" >Trở lại</button>            		
             	</form>
             </div>
         </nav>
@@ -24,7 +24,7 @@
     <br>
     <div class="row">
         <div class="container">
-            <h3 class="text-center">Danh sách Khoa</h3>
+            <h3 class="text-center">Danh sách lớp của ${khoa.getTenkhoa() }</h3>
             <hr>
             <div class="container text-left">    
                </div>
@@ -32,36 +32,20 @@
                <table class="table table-bordered">
                    <thead>
                        <tr>
-                           <th>Mã khoa</th>
-                           <th>Tên khoa</th>
-                           <th>Lựa chọn</th>
+                           <th>Mã lớp</th>
                        </tr>
                    </thead>
                    <tbody>
                     <c:forEach var="monhoc" items="${list}">
                         <tr>
-                            <td><c:out value="${monhoc.getId()}" /></td>
-                            <td><c:out value="${monhoc.getTenkhoa()}" /></td>
+                            <td><c:out value="${monhoc.getIdlop()}" /></td>
 
                             <td style="display: flex;justify-content: space-around;;">	
-
-								<form action="ServerKhoa" method="get">
-                            		<input type="hidden" name="action" value="xem">
-                            		<input type="hidden" name="id" value="${monhoc.getId()}">
-                            		<input type="hidden" name="username" value="${acountAccount.getUsername()}" >
-                            		<button type="submit">Xem</button>
-                            	</form>
-								
-                            	<form action="ServerKhoa" method="get">
-                            		<input type="hidden" name="action" value="formedit">
-                            		<input type="hidden" name="id" value="${monhoc.getId()}">
-                            		<input type="hidden" name="username" value="${acountAccount.getUsername()}" >
-                            		<button type="submit">Edit</button>
-                            	</form>
                             
-                            	<form action="ServerKhoa" method="post">
+                            	<form action="ServerLopCuaKhoa" method="post">
                             		<input type="hidden" name="action" value="delete">
-                            		<input type="hidden" name="id" value="${monhoc.getId()}">
+                            		<input type="hidden" name="idlop" value="${monhoc.getIdlop()}">
+                            		<input type="hidden" name="idkhoa" value="${khoa.getId()}">
                             		<input type="hidden" name="username" value="${acountAccount.getUsername()}" >
                             		<button type="submit">Delete</button>
                             	</form>
@@ -73,8 +57,9 @@
         </div>
     </div>
 	<div>
-		<form action="ServerKhoa" method="post">
+		<form action="ServerLopCuaKhoa" method="post">
        		<input type="hidden" name="action" value="addnew">
+       		<input type="hidden" name="idkhoa" value="${khoa.getId()}">
        		<input type="hidden" name="username" value="${acountAccount.getUsername()}" >
        		<button type="submit">Thêm khoa học</button>
        	</form>

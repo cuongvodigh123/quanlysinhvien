@@ -13,7 +13,37 @@ import model.MonHocKyHoc;
 
 public class LopHocPhanDao {
 private Connection jdbcConnection = new DAO().connect();
-	
+
+	public List<LopHocPhan> getListLopHocPhanChoKyHoc(String idkyhoc) {
+		List<LopHocPhan> list = new ArrayList<LopHocPhan>();
+		try {
+			String sql="SELECT lhp.*\r\n"
+					+ "FROM lophocphan lhp\r\n"
+					+ "JOIN monhockyhoc mhkh ON lhp.idmonhockyhoc = mhkh.id\r\n"
+					+ "WHERE mhkh.idkyhoc = ?";
+			PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+			statement.setString(1, idkyhoc);
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				String id = rs.getString("id");
+				String ten = rs.getString("ten");
+				String mota = rs.getString("mota");
+				String soluong = rs.getString("soluong");
+				String idmonhockyhoc = rs.getString("idmonhockyhoc");
+				MonHocKyHoc mhkh = new MonHocKyHocDao().getMonHocKyHoc(idmonhockyhoc);
+				String idgiangvien = rs.getString("idgiangvien");
+				GiangVien giangvien = new GiangVienDao().getGiangVien(idgiangvien);
+				String idstt = rs.getString("idstt");
+				LopHocPhan s = new LopHocPhan(id, ten, mota, Integer.parseInt(soluong), mhkh, giangvien,Integer.parseInt(idstt));
+				list.add(s);
+			}
+			return list;
+		}catch(SQLException e){
+			System.out.println("Loi get list LopHocPhan cho ky hoc");
+		}
+		return null;
+	}
+
 	public List<LopHocPhan> getListLopHocPhan(String idmhkh) {
     	List<LopHocPhan> list = new ArrayList<LopHocPhan>();
     	try {

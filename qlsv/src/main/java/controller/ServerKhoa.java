@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.AccountDao;
 import dao.KhoaDao;
+import dao.LopCuaKhoaDao;
 import model.Account;
 import model.Khoa;
+import model.LopCuaKhoa;
 
 /**
  * Servlet implementation class ServerKhoa
@@ -61,8 +63,10 @@ public class ServerKhoa extends HttpServlet {
 		String id = request.getParameter("id");
 		Khoa khoa = new KhoaDao().getKhoa(id);
 		request.setAttribute("khoa", khoa);
-//		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/kyhoc/listkyhoc.jsp");
-//		dispatcher.forward(request, response);
+		List<LopCuaKhoa> list = new LopCuaKhoaDao().getListLopCuaKhoa(id);
+		request.setAttribute("list", list);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/lopcuakhoa/listlopcuakhoa.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	private void updateMH(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{

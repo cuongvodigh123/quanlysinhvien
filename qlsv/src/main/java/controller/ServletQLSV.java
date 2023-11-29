@@ -19,6 +19,7 @@ import dao.KhoaDao;
 import dao.MonHocDao;
 import dao.KyHocDao;
 import dao.SinhVienDao;
+import dao.UpdateMKSV;
 import model.Account;
 import model.GiangVien;
 import model.Khoa;
@@ -53,6 +54,15 @@ public class ServletQLSV extends HttpServlet {
 		}
         try {
             switch (s1) {
+            case "deletestudent":
+	        	deletestudent(request,response);
+	        	break;
+            case "dangxuat":
+            	login(request, response);
+                break;
+            case "resettaikhoan":
+            	resettaikhoan(request,response);
+            	break;
             case "listmonhoc":
             	listmonhoc(request,response);
             	break;
@@ -61,9 +71,6 @@ public class ServletQLSV extends HttpServlet {
             	break;
             case "excel":
             	excelform(request,response);
-            	break;
-            case "edit":
-            	editstudent(request,response);
             	break;
             case "trangchu":
             	showTrangChu(request,response);
@@ -93,6 +100,21 @@ public class ServletQLSV extends HttpServlet {
         }
 	}
 	
+	private void deletestudent(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
+		// TODO Auto-generated method stub
+		String maSV = request.getParameter("maSVold");
+		boolean x =sinhVienDao.deleteSinhVien(maSV);
+		showList(request, response);
+	}
+	
+	private void resettaikhoan(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
+		// TODO Auto-generated method stub
+		String masv = request.getParameter("masv");
+		boolean x = new UpdateMKSV().updateTKDN(masv, masv);
+		PrintWriter out = response.getWriter();
+		if(x) out.print("ok");
+		else out.print("notok");
+	}
 	private void listgiangvien(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
 		// TODO Auto-generated method stub
 		String username = request.getParameter("username");
@@ -166,23 +188,7 @@ public class ServletQLSV extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/excelform.jsp");
 		dispatcher.forward(request, response);
 	}
-	private void editstudent(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
-		// TODO Auto-generated method stub
-		String maSV = request.getParameter("maSV");
-		SinhVien sinhvien = null;
-		if(maSV.equals("new")) {
-			sinhvien = new SinhVien();
-			System.out.println("new sinh vien");
-		}else {
-			sinhvien = sinhVienDao.getSinhVien(maSV);
-			System.out.println(sinhvien.getTenSV());
-		}
 	
-		request.setAttribute("sinhvien", sinhvien);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/editstudent.jsp");
-		dispatcher.forward(request, response);
-		
-	}
 	private void showTrangChu(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
 		// TODO Auto-generated method stub
 		String username = request.getParameter("username");
@@ -197,7 +203,7 @@ public class ServletQLSV extends HttpServlet {
 
 	private void login(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException {
 		// TODO Auto-generated method stub
-		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/formlogin.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("formlogin.jsp");
 		dispatcher.forward(request, response);
 	}
 

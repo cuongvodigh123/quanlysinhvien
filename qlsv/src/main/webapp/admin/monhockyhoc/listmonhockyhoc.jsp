@@ -57,6 +57,7 @@
                             	<form action=ServerMonHocKyHoc method="get">
                             		<input type="hidden" name="action" value="formedit">
                             		<input type="hidden" name="id" value="${monhoc.getId()}">
+                            		<input type="hidden" name="idkyhoc" value="${kyhoc.getId()}" >
                             		<input type="hidden" name="username" value="${acountAccount.getUsername()}" >
                             		<button type="submit">Edit</button>
                             	</form>

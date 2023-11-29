@@ -36,6 +36,12 @@
     	<button type="submit" id="gotodssv" style="display: none;"></button>
     </form>
     <br>
+    <p>Reset tài khoản</p>
+    <input id="resettaikhoan">
+    <p id="thongbaoreset"></p>
+    <button onclick="resetTKSV()">Reset</button>
+    <br>
+   	<br>
     <button id="dsmh"  onclick="dsmh()">Danh sách môn học</button>
     <form action="ServletQLSV" method="get">
     	<input type="hidden" name="action" value="listmonhoc">
@@ -63,11 +69,13 @@
     	<input type="hidden" name="username" value="${acountAccount.getUsername() }">
     	<button type="submit" id="gotodsgiangvien" style="display: none;"></button>
     </form>
-    <div id="divmk"></div>
-    
-    <button id=check onclick="check()">Check</button>
+	<br>
+	<form action="ServletQLSV" method="get">
+    	<input type="hidden" name="action" value="dangxuat">
+    	<button type="submit">Đăng xuất</button>
+    </form>
+	<div id="divmk"></div>
     <div id="demo"></div>
-    
 </body>
 <script type="text/javascript" src="js/trangchu.js"></script>
 </html>

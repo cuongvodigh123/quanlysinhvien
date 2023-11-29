@@ -10,11 +10,24 @@
 <script type="text/javascript" src="js/jquery-1.6.2.js"></script>
 </head>
 <body>
+
+<header>
+        <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
+            <div>
+            	<form action="ServletQLSV" method="get">
+            		<input type="hidden" name="action" value="trangchu">
+            		<input type="hidden" name="username" value="${acountAccount.getUsername()}" >
+					<button type="submit" >Trang chủ</button>            		
+            	</form>
+            </div>
+        </nav>
+    </header>
+    <br>
+
     <center>
         <h1>Danh sách sinh viên</h1>
         <h2>
-            <a href="/qlsv/ServletQLSV?action=edit&maSV=new" target="_blank">Thêm sinh viên</a>
-            &nbsp;&nbsp;&nbsp;&nbsp;
+            
            	<a href="/qlsv/ServletQLSV?action=excel" target="_blank">Nhập File Excel</a>
         </h2>
     </center>
@@ -53,7 +66,7 @@
                 <th onclick="sortngaysinh()">Ngày sinh</th>
                 <th onclick="sortsdt()">Số điện thoại</th>
             </tr>     
-            <!-- <td><a href="/qlsv/ServletQLSV?goto=edit&maSV=masinhvien" target="_blank">mã sinh viên</a></td> -->
+            
         </table>
     </div>
     </div>   

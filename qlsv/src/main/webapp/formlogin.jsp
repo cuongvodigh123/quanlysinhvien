@@ -8,7 +8,6 @@
 <title>Đăng nhập</title>
 <link rel="icon" type="image/x-icon" href="image/ech.png">
 <script type="text/javascript" src="js/jquery-1.6.2.js"></script>
-<script type="text/javascript" src="js/checklogin.js"></script>
 </head>
 <body>
     <div style="border: 4px solid purple;display: flex; flex-direction: column;align-items: center;justify-content: center;">
@@ -30,6 +29,12 @@
             </div>
         </div>
         <p style="display: inline;color: red;" id="p3"></p>
+        <div style="display: flex;">
+        	<input type="radio" id="giangvien" onclick="chonGiangVien()"><p>Giảng viên</p>
+        	<input type="radio" id="sinhvien" onclick="chonSinhVien()"><p>Sinh viên</p>
+        </div>
+        
+		
         <br>
         <button onclick="check()">Đăng nhập</button>
         <br>
@@ -37,4 +42,5 @@
         <div id="trangchu"></div>
     </div>
 </body>
+<script type="text/javascript" src="js/checklogin.js"></script>
 </html>
