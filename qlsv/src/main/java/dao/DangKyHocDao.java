@@ -84,15 +84,18 @@ public class DangKyHocDao {
         return false;
     }
 	public String getIDSTT() {
-		Integer id = null;
+		Integer id = 1;
 		try {
     		String sql="SELECT * FROM quanlysv.dangkyhoc";
     		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
     		ResultSet rs = statement.executeQuery();
     		while(rs.next()) {
-    			id= Integer.parseInt(rs.getString("id"));
+    			int k=Integer.parseInt(rs.getString("id"));
+    			if(k==id) {
+    				id+=1;
+    			}
     		}
-    		return String.valueOf(id+1);
+    		return String.valueOf(id);
     	}catch(SQLException e){
     		System.out.println("Loi get id stt dang ky hoc");
     	}
@@ -106,12 +109,12 @@ public class DangKyHocDao {
             statement.setString(1, pp);
             statement.setString(2, masv);
             statement.setString(3, idlhp);
-            System.out.println(pp+" "+masv+" "+idlhp);
-            System.out.println(statement);
+//            System.out.println(pp+" "+masv+" "+idlhp);
+//            System.out.println(statement);
             
             boolean x = statement.executeUpdate()>0;
             boolean xx = new KetQuaDao().insertKetQuaNull(pp);
-     
+    
             return x&&xx;
         } catch (SQLException ex) {
             System.out.println("Lỗi insert dang ky hoc.");

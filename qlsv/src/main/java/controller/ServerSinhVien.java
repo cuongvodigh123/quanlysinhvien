@@ -88,7 +88,7 @@ public class ServerSinhVien extends HttpServlet {
 	private void xoadangkylophocphan(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		String idlophocphan = request.getParameter("idlophocphan");
-		System.out.println("xoa dang ky hoc "+idlophocphan);
+//		System.out.println("xoa dang ky hoc "+idlophocphan);
 		boolean x = new DangKyHocDao().deleteDangKyHoc(idlophocphan,accountSinhVien.getMaSV());
 
 	}
