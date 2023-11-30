@@ -122,6 +122,12 @@ function dskhoa(){
 function dsgiangvien(){
 	document.getElementById("gotodsgiangvien").click();
 }
+function dangxuat(){
+	document.getElementById("dangxuat").click();
+}
+function trovehome(){
+	document.getElementById("trovehome").click();
+}
 function resetTKSV(){
 	var x = document.getElementById("resettaikhoan").value;
 	$.ajax({

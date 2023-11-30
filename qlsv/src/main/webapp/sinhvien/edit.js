@@ -16,14 +16,10 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
 
     reader.readAsDataURL(file);
 });
-function check(){
-	var tenSV = encodeURIComponent($('#tenSV').val());
-	document.getElementById('demo1').innerHTML = tenSV;
-}
 function huy(){
 	var isConfirmed = confirm("Bạn có chắc muốn đóng trang này? Dữ liệu sẽ không được lưu.");
     if (isConfirmed) {
-        window.close();
+        window.history.back();
     }
 }
 

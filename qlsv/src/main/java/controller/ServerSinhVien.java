@@ -161,17 +161,8 @@ public class ServerSinhVien extends HttpServlet {
 
 	private void editstudent(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
 		// TODO Auto-generated method stub
-		String maSV = request.getParameter("maSV");
-		SinhVien sinhvien = null;
-		if(maSV.equals("new")) {
-			sinhvien = new SinhVien();
-			System.out.println("new sinh vien");
-		}else {
-			sinhvien = new SinhVienDao().getSinhVien(maSV);
-			System.out.println(sinhvien.getTenSV());
-		}
-	
-		request.setAttribute("sinhvien", sinhvien);
+		
+		request.setAttribute("sinhvien", accountSinhVien);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("sinhvien/editstudent.jsp");
 		dispatcher.forward(request, response);
 		

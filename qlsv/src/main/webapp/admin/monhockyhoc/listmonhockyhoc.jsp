@@ -75,16 +75,17 @@
                     </c:forEach>
                 </tbody>
             </table>
+            <div>
+				<form action="ServerMonHocKyHoc" method="post">
+		       		<input type="hidden" name="action" value="addnew">
+		       		<input type="hidden" name="soluong" value="${list.size() }">
+		       		<input type="hidden" name="idkyhoc" value="${kyhoc.getId()}" >
+		       		<input type="hidden" name="username" value="${acountAccount.getUsername()}" >
+		       		<button type="submit">Thêm môn học vào kỳ học này</button>
+		       	</form>
+			</div>
         </div>
     </div>
-	<div>
-		<form action="ServerMonHocKyHoc" method="post">
-       		<input type="hidden" name="action" value="addnew">
-       		<input type="hidden" name="soluong" value="${list.size() }">
-       		<input type="hidden" name="idkyhoc" value="${kyhoc.getId()}" >
-       		<input type="hidden" name="username" value="${acountAccount.getUsername()}" >
-       		<button type="submit">Thêm môn học vào kỳ học này</button>
-       	</form>
-	</div>
+	
 </body>
 </html>

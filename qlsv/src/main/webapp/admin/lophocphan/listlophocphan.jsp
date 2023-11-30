@@ -79,16 +79,17 @@
                     </c:forEach>
                 </tbody>
             </table>
+            <div>
+				<form action="ServerLopHocPhan" method="post">
+		       		<input type="hidden" name="action" value="addnew">
+		       		<input type="hidden" name="soluong" value="${list.size() }">
+		       		<input type="hidden" name="idmhkh" value="${mhkh.getId()}" >
+		       		<input type="hidden" name="username" value="${acountAccount.getUsername()}" >
+		       		<button type="submit">Thêm lớp vào môn ${mhkh.getMh().getTen()} của kỳ ${mhkh.getKyhoc().getMota() }</button>
+		       	</form>
+			</div>
         </div>
     </div>
-	<div>
-		<form action="ServerLopHocPhan" method="post">
-       		<input type="hidden" name="action" value="addnew">
-       		<input type="hidden" name="soluong" value="${list.size() }">
-       		<input type="hidden" name="idmhkh" value="${mhkh.getId()}" >
-       		<input type="hidden" name="username" value="${acountAccount.getUsername()}" >
-       		<button type="submit">Thêm lớp vào môn ${mhkh.getMh().getTen()} của kỳ ${mhkh.getKyhoc().getMota() }</button>
-       	</form>
-	</div>
+	
 </body>
 </html>

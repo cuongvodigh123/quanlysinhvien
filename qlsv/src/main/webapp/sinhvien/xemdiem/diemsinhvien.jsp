@@ -11,6 +11,18 @@
 <script type="text/javascript" src="js/jquery-1.6.2.js"></script>
 </head>
 <body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
+            <div>
+            	<form action="ServerSinhVien" method="get">
+            		<input type="hidden" name="action" value="trangchu">
+            		<input type="hidden" name="username" value="${sinhvien.getMaSV()}" >
+					<button type="submit" >Trang chủ</button>            		
+            	</form>
+            </div>
+        </nav>
+    </header>
+
 	<div class="row">
         <div class="container">
             <h3 class="text-center">Danh sách điểm của ${sinhvien.getTenSV() }</h3>

@@ -16,7 +16,7 @@
                 <form id="danhsachmh" action="ServletQLSV" method="get">
             		<input type="hidden" name="action" value="listgiangvien">
             		<input type="hidden" name="username" value="${acountAccount.getUsername()}" >
-					<button type="submit" >Danh sách giang vien</button>            		
+					<button type="submit" >Trở lại</button>            		
             	</form>
             </div>
         </nav>

@@ -54,3 +54,15 @@ function checkmk(){
 	}
 	//asdfjhasdfhkjsdf
 }
+function editsinhvien(){
+	document.getElementById("editsinhvien").click();
+}
+function dangky(){
+	document.getElementById("dangky").click();
+}
+function xemdiem(){
+	document.getElementById("xemdiem").click();
+}
+function dangxuat(){
+	document.getElementById("dangxuat").click();
+}

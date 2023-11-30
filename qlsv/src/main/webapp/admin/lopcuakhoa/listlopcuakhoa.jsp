@@ -54,15 +54,16 @@
                     </c:forEach>
                 </tbody>
             </table>
+            <div>
+				<form action="ServerLopCuaKhoa" method="post">
+		       		<input type="hidden" name="action" value="addnew">
+		       		<input type="hidden" name="idkhoa" value="${khoa.getId()}">
+		       		<input type="hidden" name="username" value="${acountAccount.getUsername()}" >
+		       		<button type="submit">Thêm khoa học</button>
+		       	</form>
+			</div>
         </div>
     </div>
-	<div>
-		<form action="ServerLopCuaKhoa" method="post">
-       		<input type="hidden" name="action" value="addnew">
-       		<input type="hidden" name="idkhoa" value="${khoa.getId()}">
-       		<input type="hidden" name="username" value="${acountAccount.getUsername()}" >
-       		<button type="submit">Thêm khoa học</button>
-       	</form>
-	</div>
+	
 </body>
 </html>

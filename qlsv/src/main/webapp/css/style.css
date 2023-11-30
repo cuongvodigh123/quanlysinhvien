@@ -1,0 +1,128 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.top-div {
+    /* background: linear-gradient(0, #d31010, #ef8655); */
+    background-color:rgb(71, 181, 255);
+    height: 10%;
+    width: 100%;
+    text-align:justify;
+    position: fixed;
+    /* Căn giữa văn bản trong phần tử */
+}
+
+.top-div h1 { 
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(6, 40, 61);
+    margin-top: 25px; /* Thay đổi giá trị này để điều chỉnh khoảng cách từ phía trên */
+    margin-bottom: 10px; /* Thay đổi giá trị này để điều chỉnh khoảng cách từ phía dưới */
+    margin-left: 20px; /* Thay đổi giá trị này để điều chỉnh khoảng cách từ phía trái */
+    margin-right: 20px;
+    position: fixed;
+}
+
+.box-duoi {
+    display: flex;
+    height: 100%;
+    /* Chiều cao 100% của màn hình */
+}
+
+.left-div {
+    padding: 100px 10px 10px 10px;
+    /* float: left; Xếp cạnh bên trái */
+    background-color:rgb(223, 246, 255);
+    flex: 12%;
+    /* Chiếm 30% chiều rộng của container */
+
+}
+
+.right-div {
+    background-color: white;
+    flex: 80%;
+    /* Chiếm 70% chiều rộng của container */
+}
+
+.menu {
+    display: flex;
+    /* Sử dụng Flexbox */
+    flex-direction: column;
+    /* Sắp xếp theo chiều dọc */
+    list-style: none;
+    /* Loại bỏ dấu chấm đầu dòng */
+    padding: 0;
+    /* Loại bỏ padding mặc định của danh sách */
+}
+
+.nutbam {
+    /* margin-bottom: 10px; Tạo khoảng cách giữa các mục (tuỳ chọn) */
+    background-color: rgb(6, 40, 61);
+    padding: 10px;
+    margin: 10px;
+    /* Khoảng cách giữa các hộp (tuỳ chọn) */
+    border: 1px solid #000;
+    /* Đường viền của hộp */
+    border-radius: 10px 10px 10px 10px;
+    display: block;
+    font-size: 15px;
+}
+
+.thanhphan-menu {
+    text-decoration: none;
+    /* Loại bỏ gạch chân */
+    color: rgb(223, 246, 255);
+    font-weight: bold;
+    padding:10px;
+    display: block;
+}
+
+button {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    width: 200px;
+    padding: 5px;
+}
+
+
+footer {
+    background-color:rgb(71, 181, 255);
+    color:rgb(6, 40, 61);
+    text-align: center;
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+}
+
+th, td {
+    border: 2px solid black;
+    padding: 5px; /* Tăng cường độ rộng nếu cần thiết */
+}
+
+/* CSS cho các dòng chẵn và lẻ */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* CSS cho nút "Edit" và "Delete" */
+button {
+	width: 90px;
+    padding: 5px 10px;
+
+}
