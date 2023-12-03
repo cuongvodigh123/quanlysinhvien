@@ -110,7 +110,7 @@ public class KetQuaDao {
             statement.setString(3, "0.0");
             statement.setString(4, "0.0");
             statement.setString(1, iddkh);
-            System.out.println(statement);
+//            System.out.println(statement);
             boolean x = statement.executeUpdate()>0;
          
             return x;

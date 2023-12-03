@@ -15,7 +15,6 @@ function checkmk(){
 	var mkcu = $('#mkcu').val();
 	var mkmoi = $('#mkmoi').val();
 	var mkmoi1 = $('#mkmoi1').val();
-	var username = $('#username').val();
 	if(mkmoi!=mkmoi1){
 		document.getElementById("demo").innerHTML = "Mật khẩu mới nhập lại không đúng";
 		return;
@@ -23,7 +22,6 @@ function checkmk(){
 		$.ajax({
 			type: 'post',
 			data : {
-				username : username,
 				mkcu : mkcu,
 				mkmoi : mkmoi,
 				mkmoi1 : mkmoi1,
@@ -65,4 +63,7 @@ function xemdiem(){
 }
 function dangxuat(){
 	document.getElementById("dangxuat").click();
+}
+function trovehome(){
+	document.getElementById("trovehome").click();
 }

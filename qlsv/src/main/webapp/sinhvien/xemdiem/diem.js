@@ -8,3 +8,4 @@
         rows[j].insertBefore(cell, rows[j].firstChild);
     }
  }
+ 

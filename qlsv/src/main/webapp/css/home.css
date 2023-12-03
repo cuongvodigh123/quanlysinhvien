@@ -1,0 +1,160 @@
+body {
+    background-color: #F0F7FF;
+}
+
+/* main */
+.main {
+    display: flex;
+    flex-direction: column;
+    background-color: #F0F7FF;
+    width: 100%;
+}
+
+.sider {
+    padding: 30px;
+    background-color: #0052B4;
+    position: fixed;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 22%;
+}
+
+.sider ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sider ul h1 {
+    font-size: 20px;
+    margin: 0;
+    margin-bottom: 30px;
+    color: #fff;
+    text-align: center;
+}
+
+.sider ul li {
+    margin-bottom: 10px;
+}
+
+.sider ul li:last-child {
+    margin-bottom: 0;
+}
+
+.sider ul li a {
+    display: block;
+    padding: 15px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.sider ul li a:hover {
+    color: #0052B4;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.sider ul li a span {
+    margin-left: 15px;
+}
+
+.content { 
+    /*margin-left: 312.77px;*/
+    margin-left: 24%;
+    padding-top: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    flex: 1;
+}
+
+.content__header {
+    display: flex;
+    padding: 15px;
+}
+
+.content__nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1;
+}
+
+.content__icon {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-right: 30px;
+}
+
+.content__icon li {
+    margin: 0 15px;
+}
+
+.content__avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: block;
+}
+
+.content__banner {
+    padding: 30px;
+    background-color: #0052B4;
+    color: #fff;
+    border-radius: 15px;
+}
+
+.content__banner h1 {
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.content__banner p {
+    font-size: 18px;
+    margin: 0;
+}
+
+.content__box1 {
+    display: flex;
+    margin-top: 20px;
+}
+
+.content__info {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    width: 50%;
+}
+
+.content__info-item h2 {
+    margin: 15px 0;
+}
+
+.content__info-item p {
+    font-size: 20px;
+    margin: 0;
+}
+
+.content__function {
+    width: 25%;
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.content__change {
+    display: block;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    color: #000;
+}
+/* End main */

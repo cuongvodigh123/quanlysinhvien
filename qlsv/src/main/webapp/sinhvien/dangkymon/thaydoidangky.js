@@ -23,7 +23,7 @@ checkboxes.forEach(function(checkbox) {
     });
 });
 function trove(){
-	document.getElementById("danhsachmh").submit();
+	document.getElementById("trovedangkymonhoc").click();
 }
 
 function luudangky(event) {

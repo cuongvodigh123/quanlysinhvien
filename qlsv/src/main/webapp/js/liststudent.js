@@ -25,9 +25,10 @@ function setuptable(){
 	+ "                <th onclick=\"sortgioitinh()\">Giới tính</th>\r\n"
 	+ "                <th onclick=\"sortngaysinh()\">Ngày sinh</th>\r\n"
 	+ "                <th onclick=\"sortsdt()\">Số điện thoại</th>\r\n"
+	+ "                <th>Action</th>\r\n"
 	+ "            </tr>";
 }
-function check(){
+function timkiem(){
 	var desc=0;
 	var strFind = $('#strFind').val();
 	var sapxep = $('#sapxep').val();

@@ -11,7 +11,6 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
         var preview = document.getElementById('anhdaidien');
         preview.src = reader.result;
         base64Image = reader.result.split(',')[1];
-        //document.getElementById('demo').innerHTML = base64Image;
     }
 
     reader.readAsDataURL(file);

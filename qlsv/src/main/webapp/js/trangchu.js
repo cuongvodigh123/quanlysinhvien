@@ -46,10 +46,6 @@ function loaddatabase(base64Image){
 		}
 	});
 }
-function check(){
-	var username = $('#username').val();
-	document.getElementById("demo").innerHTML = username;
-}
 function doimatkhau(){
 	data = "<p>Mật khẩu cũ: <input type=\"text\" id=\"mkcu\"/></p>" +
     	"<p>Mật khẩu mới: <input type=\"text\" id=\"mkmoi\"/></p>" +

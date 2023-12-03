@@ -96,7 +96,7 @@ public class ServerSinhVien extends HttpServlet {
 	private void luudangkylophocphan(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		String idlophocphan = request.getParameter("idlophocphan");
-		System.out.println("luu dang ky hoc "+idlophocphan);
+//		System.out.println("luu dang ky hoc "+idlophocphan);
 		boolean x = new DangKyHocDao().insertDangKyHoc(idlophocphan,accountSinhVien.getMaSV());
 
 	}
@@ -111,6 +111,7 @@ public class ServerSinhVien extends HttpServlet {
 		DangKyHocDao dangkyhocDao = new DangKyHocDao();
 		request.setAttribute("dangkyhocDao", dangkyhocDao);
 		request.setAttribute("sinhvien", accountSinhVien);
+		request.setAttribute("accountSinhVien", accountSinhVien);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("sinhvien/dangkymon/thaydoidangky.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -118,6 +119,7 @@ public class ServerSinhVien extends HttpServlet {
 	private void getdangkymonhoc(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
 		// TODO Auto-generated method stub
 		request.setAttribute("sinhvien", accountSinhVien);
+		request.setAttribute("accountSinhVien", accountSinhVien);
 		String idkyhoc = request.getParameter("idkyhoc");
 		KyHoc kyhoc = new KyHocDao().getNamHoc(idkyhoc);
 		request.setAttribute("kyhoc", kyhoc);
@@ -134,6 +136,7 @@ public class ServerSinhVien extends HttpServlet {
 
 	private void dangkymon(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
 		// TODO Auto-generated method stub
+		request.setAttribute("accountSinhVien", accountSinhVien);
 		request.setAttribute("sinhvien", accountSinhVien);
 		List<KyHoc> list = new KyHocDao().getListKyDangKy();
 		request.setAttribute("list", list);
@@ -144,16 +147,26 @@ public class ServerSinhVien extends HttpServlet {
 	private void xemdiemSV(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
 		// TODO Auto-generated method stub
 		request.setAttribute("sinhvien", accountSinhVien);
-		
+		request.setAttribute("accountSinhVien", accountSinhVien);
 		List<KyHoc> listkyhoc = new KyHocDao().getListNamHoc();
 		request.setAttribute("listkyhoc", listkyhoc);
 		
 		List<KetQua> list = new KetQuaDao().getListKetQuachoSinhVien(accountSinhVien.getMaSV());
 		Collections.sort(list);
-		for(KetQua x:list) {
-			System.out.println(x.getDangkyhoc().getLophocphan().getMhkh().getMh().getTinchi());
+		List<Float> listkqtb = new ArrayList<Float>();
+		for(KyHoc kh:listkyhoc) {
+			float k=0;
+			int d=0;
+			for(KetQua x:list) {
+				if(kh.getId()==x.getDangkyhoc().getLophocphan().getMhkh().getKyhoc().getId()) {
+					k+=Float.parseFloat(x.getDiemHeSo4(x.getDiemHeSo())) * x.getDangkyhoc().getLophocphan().getMhkh().getMh().getTinchi();
+					d+=x.getDangkyhoc().getLophocphan().getMhkh().getMh().getTinchi();
+				}
+			}
+			listkqtb.add((float)k/d);
 		}
-		
+//		for(float i:listkqtb) System.out.println(i);
+		request.setAttribute("listkqtb", listkqtb);
 		request.setAttribute("list", list);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("sinhvien/xemdiem/diemsinhvien.jsp");
 		dispatcher.forward(request, response);
@@ -161,7 +174,7 @@ public class ServerSinhVien extends HttpServlet {
 
 	private void editstudent(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
 		// TODO Auto-generated method stub
-		
+		request.setAttribute("accountSinhVien", accountSinhVien);
 		request.setAttribute("sinhvien", accountSinhVien);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("sinhvien/editstudent.jsp");
 		dispatcher.forward(request, response);
@@ -171,11 +184,12 @@ public class ServerSinhVien extends HttpServlet {
 	private void doimatkhau(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
-		String username = request.getParameter("username");
+		String username = accountSinhVien.getMaSV();
 		String mkcu = request.getParameter("mkcu");
 		String mkmoi = request.getParameter("mkmoi");
 		String mkmoi1 = request.getParameter("mkmoi1");
 		boolean k = new UpdateMKSV().checkTK(username, mkcu);
+//		System.out.println(mkcu+" "+mkmoi+" "+mkmoi1+" "+k);
 		if(!k || !mkmoi.equals(mkmoi1)) {
 			out.print("notok");
 		}else {
