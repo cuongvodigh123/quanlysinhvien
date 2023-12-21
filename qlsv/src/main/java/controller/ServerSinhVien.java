@@ -163,7 +163,7 @@ public class ServerSinhVien extends HttpServlet {
 					d+=x.getDangkyhoc().getLophocphan().getMhkh().getMh().getTinchi();
 				}
 			}
-			listkqtb.add((float)k/d);
+			listkqtb.add((float)Math.round((k/d)*100)/100);
 		}
 //		for(float i:listkqtb) System.out.println(i);
 		request.setAttribute("listkqtb", listkqtb);

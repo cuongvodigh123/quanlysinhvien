@@ -52,7 +52,7 @@
                 	</fieldset>
                 </c:if>
                 <fieldset class="form-group">
-                    <label>Tên khoa:</label> 
+                    <label>Tên giảng viên:</label> 
                     <input type="text" value="<c:out value='${giangvien.getTen()}' />" class="form-control" id="name" required="required">
                 </fieldset>
                 <button id="buttonsave" onclick="checkandsave(event)" class="btn btn-success">Save</button>

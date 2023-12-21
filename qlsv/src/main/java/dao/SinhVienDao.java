@@ -124,8 +124,9 @@ public class SinhVienDao {
             statement.setString(8, sv.getDiaChi());
             statement.setString(9, sv.getGhiChu());
             statement.setBlob(10, sv.getAvatar() != null ? new SerialBlob(sv.getAvatar()) : null);
-            System.out.println(statement);
+//            System.out.println(statement);
             boolean x= statement.executeUpdate() > 0;
+            boolean xx = new UpdateMKSV().insertTKSV(sv.getMaSV());
             return x;
         } catch (SQLException ex) {
             System.out.println("Lỗi add Sinh viên.");

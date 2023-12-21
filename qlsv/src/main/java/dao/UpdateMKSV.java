@@ -7,6 +7,18 @@ import java.sql.SQLException;
 
 public class UpdateMKSV {
 	private Connection jdbcConnection = new DAO().connect();
+	public boolean insertTKSV(String x) {
+		try {
+			String sql = "INSERT INTO `quanlysv`.`svdangnhap` (`maSV`, `pass`) VALUES (?, ?);";
+			PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+			statement.setString(2, x);
+			statement.setString(1, x);
+			return statement.executeUpdate() >0;
+		}catch(SQLException e){
+    		System.out.println("Loi them tai khoan dang nhap");
+    	}
+		return false;
+	}
 	public boolean updateTKDN(String x,String y) {
 		try {
 			String sql = "UPDATE `quanlysv`.`svdangnhap` SET `pass` = ? WHERE (`maSV` = ?);";

@@ -126,8 +126,8 @@ public class ServerMonHocKyHoc extends HttpServlet {
 		String idkyhoc = request.getParameter("idkyhoc");
 		KyHoc kyhoc = new KyHocDao().getNamHoc(idkyhoc);
 		request.setAttribute("kyhoc", kyhoc);
-		String soluong = request.getParameter("soluong");
-		request.setAttribute("soluong", Integer.parseInt(soluong)+1);
+		String soluong = new MonHocKyHocDao().getIDSTT();
+		request.setAttribute("soluong", Integer.parseInt(soluong));
 		List<MonHoc> list = new MonHocDao().getListMonHoc();
 		request.setAttribute("list", list);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("admin/monhockyhoc/formmonhockyhoc.jsp");

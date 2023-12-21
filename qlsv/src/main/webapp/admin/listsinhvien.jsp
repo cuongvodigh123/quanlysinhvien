@@ -119,7 +119,6 @@
 			    <center>
 			        <h1>Danh sách sinh viên</h1>
 			        <h2>
-			            
 			           	<a href="/qlsv/ServletQLSV?action=excel" target="_blank">Nhập File Excel</a>
 			        </h2>
 			    </center>
@@ -136,6 +135,7 @@
 				    <input id="strFind" type="text">
 				    <button id="check" onclick="timkiem()">Tìm</button>
 			    </div>
+			    <br>
 			    <form action="ServletQLSV" method="post" target="_blank">
 			    	<input type="hidden" name="action" value="exportexcel">
 			    	<input id="q" type="hidden" name="q" value="">
