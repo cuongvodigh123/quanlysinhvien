@@ -97,8 +97,11 @@ public class ServerSinhVien extends HttpServlet {
 		// TODO Auto-generated method stub
 		String idlophocphan = request.getParameter("idlophocphan");
 //		System.out.println("luu dang ky hoc "+idlophocphan);
-		boolean x = new DangKyHocDao().insertDangKyHoc(idlophocphan,accountSinhVien.getMaSV());
-
+		Integer slconlai = new DangKyHocDao().getSLConLai(idlophocphan);
+		LopHocPhan lhp = new LopHocPhanDao().getLopHocPhanSTT(idlophocphan);
+		if(lhp.getSoluong()-slconlai>0) {
+			boolean x = new DangKyHocDao().insertDangKyHoc(idlophocphan,accountSinhVien.getMaSV());
+		}
 	}
 
 	private void thaydoidangky(HttpServletRequest request, HttpServletResponse response) throws SQLException,IOException,ServletException{
