@@ -170,9 +170,6 @@ public class ServletQLSV extends HttpServlet {
 		String w = request.getParameter("w");
 		if(w.equals("")) {
 			w = "";
-		}else {
-			byte[] bytes = Base64.getDecoder().decode(w);
-			w = new String(bytes);
 		}
 		
 		String e = request.getParameter("e");
