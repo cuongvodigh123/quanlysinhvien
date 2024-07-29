@@ -11,3 +11,4 @@ STT	Mã Sinh Viên	Họ Và Tên	Lớp	Giới Tính	Ngày Sinh	Số Điện Tho�
 có các chức năng cơ bản của sinh viên: đăng nhập, xem điểm, đăng ký môn học kỳ tới, sửa thông tin các nhân
 
 có các chức năng của 1 admin: đăng nhập, thêm sửa xóa (khoa, lớp, môn, giáo viên, kỳ học), tạo ra các lớp học phần để cho sinh viên đăng ký, nhập điểm file exel cho 1 lớp học theo form excel đã xuất ra
+......
